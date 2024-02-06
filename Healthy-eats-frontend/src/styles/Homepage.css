@@ -1,0 +1,201 @@
+.body-container{
+    width: 100%;
+}
+.background-container{
+    background-image: url(/src/assets/background.png);
+    background-size: cover;    
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 100%;
+    height: 100vh;
+}
+
+.middle-section{
+    display: flex;
+    flex-direction: column;
+    margin-top: 12%;
+    margin-left: 5%;
+}
+.middle-section-text h2{
+    margin-bottom: 4px;
+    font-size: 30px;
+    font-weight: 400;
+}
+.middle-section-text h1{
+    margin-bottom: 4px;
+    font-size: 60px;
+    font-weight: 600;
+    color: rgb(238, 234, 234);
+}
+.middle-section-text h3{
+    margin-bottom: 4px;
+    font-size: 25px;
+    font-weight: 400;
+}
+.middle-section-text button{
+    margin-top: 20px;
+    margin-left: 4%;
+    height: 60px;
+    width: 180px;   
+    cursor: pointer;    
+    border: 1px solid rgb(172, 169, 169);
+    border-radius: 5px;
+    font-size: 20px;
+    font-weight: lighter;
+}
+.explore-button:hover{
+    color: white;
+    background-color: rgb(45, 76, 48);
+    box-shadow: 2px 2px 4px rgba(rgba(63, 63, 63,0.2));
+}
+.body-info{
+    margin-top: 4vh;
+    margin-bottom: 4vh;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+    height: 420px;
+    background-color: white;
+}
+.header-for-card{
+    padding-top: 10px;
+    display: flex;
+    justify-content: center;
+}
+.header-for-card h1 {
+    background: linear-gradient(to right, #2e7444, #64a88c, #2e7444);
+    background-clip: text;
+    color: transparent;
+    display: inline-block;
+    animation: aquaLightUp 1s linear infinite;
+}
+
+@keyframes aquaLightUp {
+    0% {
+        background-position: 100% 0;
+    }
+    100% {
+        background-position: -100% 0;
+    }
+}
+
+.instruction-card-1{
+    height: 320px;
+    width: 250px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    padding-left: 15px;
+    padding-right: 15px;
+   display: flex;
+   flex-direction: column;
+   justify-content: flex-start;
+   align-items: center;
+   background-color: white;
+   border: 1px solid rgb(223, 222, 222);
+   border-radius: 5px;
+   box-shadow: 0px 0px 10px rgb(193, 191, 191);
+}
+.instruction-card-2{
+    height: 320px;
+    width: 250px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    padding-left: 15px;
+    padding-right: 15px;
+   display: flex;
+   flex-direction: column;
+   justify-content: flex-start;
+   align-items: center;
+   background-color: white;
+   border-radius: 5px;
+   box-shadow: 0px 0px 10px rgb(193, 191, 191);
+}
+.instruction-card-3{
+    height: 320px;
+    width: 250px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    padding-left: 15px;
+    padding-right: 15px;
+   display: flex;
+   flex-direction: column;
+   justify-content: flex-start;
+   align-items: center;
+   background-color: white;
+   border-radius: 5px;
+   box-shadow: 0px 0px 10px rgb(193, 191, 191);
+   
+}
+.instruction-card-4{
+    height: 320px;
+    width: 250px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    padding-left: 15px;
+    padding-right: 15px;
+   display: flex;
+   flex-direction: column;
+   justify-content: flex-start;
+   align-items: center;
+   background-color: white;
+   border-radius: 5px;
+   box-shadow: 0px 0px 10px rgb(193, 191, 191);
+}
+.card-1-image{
+    width: 80px;
+    height: 80px;
+    margin : 0
+}
+.card-2-image{
+    width: 80px;
+    height: 80px;
+    margin : 0
+}
+.card-3-image{
+    width: 80px;
+    height: 80px;
+    margin : 0
+}
+.card-4-image{
+    width: 80px;
+    height: 80px;
+    margin : 0
+}
+.instruction-card-1 > div{
+    margin-bottom: 39px;
+}
+.instruction-card-2 > div{
+    margin-bottom: 39px;
+}
+.instruction-card-3 > div{
+    margin-bottom: 39px;
+}
+.instruction-card-4 > div{
+    margin-bottom: 39px;
+}
+.instruction-card-1 p{
+   font-size: larger;
+   line-height: 20px;
+   text-align: center;
+}
+.instruction-card-2 p{
+    font-size: larger;
+    line-height: 20px;
+    text-align: center;
+ }
+ .instruction-card-3 p{
+    font-size: larger;
+    line-height: 20px;
+    text-align: center;
+ }
+ .instruction-card-4 p{
+    font-size: larger;
+    line-height: 20px;
+    text-align: center;
+ }
+ 
+
+
+

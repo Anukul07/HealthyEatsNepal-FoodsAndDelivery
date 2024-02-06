@@ -1,0 +1,58 @@
+.about-us-container{
+    height: 93vh;
+    background-image: url(/src/assets/about-us-bg.jpg);
+    background-size: cover;    
+    background-position: center;
+    background-repeat: no-repeat;
+    position: relative;
+    width: 100%;
+    height: 95vh;
+}
+.about-us-body{
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 3vh;
+    margin-left: 120px;
+    height: 70vh;
+    width: 50vw;
+}
+.body-logo-img{
+    height: 160px;
+    width: 180px;
+    margin-left: 2vw;
+    margin-bottom: 0px;
+}
+.body-info-img{
+    height: 100%;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+}
+.body-logo{
+    height: 34%;
+    margin-bottom: 2vh;
+}
+.body-logo h2{
+    font-family: Roboto;
+    font-style: italic;
+    font-size: 3rem;
+    font-weight: 100;
+    color: white;
+    
+}
+.body-info{
+    height: 66%;
+    border-radius: 20px;
+}
+.body-info{
+    display: flex;
+    align-items: flex-start;
+}
+.body-info p{
+    margin: 5% 10% 10% 10%;
+    font-family: Roboto;
+    font-weight: 100;
+    font-size: 1rem;
+
+}

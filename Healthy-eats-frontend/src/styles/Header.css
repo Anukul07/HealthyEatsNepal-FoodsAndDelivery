@@ -1,0 +1,66 @@
+.header{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 10px;
+}
+.promo-code{
+    margin-bottom: 20px;
+    color:rgb(238, 234, 234);
+}
+.navigation{
+    margin-top: 20px;
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-between;
+}
+.nav-left-section{
+   margin-left: 70px;
+   
+}  
+.nav-right-section{
+    margin-right: 300px;
+} 
+.nav-link {
+    margin-right: 20px;
+    text-decoration: none;
+    color: rgb(238, 234, 234);
+    font-size: 20px;
+    font-weight: 500;
+    padding-left: 50px;
+    transition: font-size 0.2s, color 0.2s, text-shadow 0.2s;
+    position: relative;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.nav-link:hover {
+    font-size: 22px;
+    color: grey;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.nav-link:active {
+    font-size: 16px;
+    color: grey;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+.nav-right-section button{  
+    margin-left: 20px;
+    width: 40px;
+    height: 40px;
+    border: 1px solid rgb(55, 54, 54);
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-radius: 30px ;
+    cursor: pointer;
+}
+.cart-button-img{
+    width: 20px;
+}
+.chat-button-img{
+    width: 20px;
+}
+
