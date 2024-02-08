@@ -1,0 +1,174 @@
+.login-container {
+    position: relative;
+    height: 100vh;
+    width: 100vw;
+    background-image: url("src/assets/login-images/login-bg-img.jpg");
+    background-size: cover;
+    background-position: center;
+}
+.login-page {
+    height: 80vh;
+    width:70vw;
+    margin-left: 13vw;
+    margin-top: 10vh;
+    position: absolute;
+    background-image: linear-gradient(to bottom,#ffffff, #e7e7e7);
+    filter: none;
+    border-radius: 40px;
+    border: 1px solid rgb(246, 240, 240);
+    box-shadow: 0px 0px 10px rgb(34, 27, 74);
+    display: flex;
+    justify-content: space-between;
+}
+.login-page {
+    animation: floatFromLeft 1s ease-in-out forwards; 
+}
+
+@keyframes floatFromLeft {
+    from {
+        transform: translateX(-100%);
+    }
+    to {
+        transform: translateX(0); 
+    }
+}
+/* .login-page-left-section{
+    font-family: Roboto;
+    margin-top: 3%;
+    width: 48%;
+    height: 90%;
+    background-color: rgb(225, 225, 225);
+    margin-left: 4%;
+    border-radius: 20px;
+    border: 0.5px solid rgb(255, 255, 255);
+    box-shadow: 0px 0px 3px rgb(197, 189, 189);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+.left-section-top-elements{
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 3%;
+}
+.top-element-h1{
+    font-size: 70px;
+    margin-bottom: 0px;
+}
+.top-element-p{
+    line-height: 1px;
+    font-size: 20px;
+    font-weight: 100;
+    font-style: italic;
+    text-align: center;
+}
+.left-section-middle-elements{
+    width: 100%;
+    height: 70%;
+    background-color: rgb(225, 225, 225);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+   
+}
+.left-section-middle-elements input{
+    width: 40%;
+    height: 10%;
+    margin-left: 20%;
+    border: none;
+    border-radius: 10px;
+    background-color: rgb(225, 225, 225);
+    border: 0.1px solid rgb(204, 202, 202);
+    box-shadow: 0px 0px 5px rgb(155, 157, 155);
+}
+.left-section-middle-elements label{
+    background-color: white;
+    display: inline-block;
+    background-color: rgb(225, 225, 225);
+    width: max-content;
+    position: relative;
+    font-style: italic;
+    font-weight: 900;
+    margin-left: 20%;
+    top: 3.5%;
+    left: 10px;
+    font-size: 15px;
+}
+.left-section-bottom-elements{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    height: 30%;
+}
+.register-button {
+    font-family: Roboto;
+    font-style: normal;
+    font-size: 1em;
+    font-weight: 600;
+    height: 28%;
+    width: 25%;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    margin-top: 3%;
+    margin-bottom: 2%;
+    letter-spacing: 1px;
+    transition: background-color 0.3s, box-shadow 0.3s; 
+}
+
+.register-button:hover {
+    background-color: orange; 
+}
+
+.register-button:active {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); 
+}  */
+.login-page-right-section{
+    margin-right: 4%;
+    margin-top: 3%;
+    height: 90%;
+    width: 40%;
+    background-image: linear-gradient(to bottom, #FF8C00, #FFA500);
+    border-radius: 20px;
+    border: 0.5px solid rgb(255, 255, 255);
+    box-shadow: 0px 0px 3px rgb(197, 189, 189);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+.login-logo{
+    margin-top: 10%;
+    width: 90%;
+    height: 62%;
+}
+.back-home-button {
+    font-family: Roboto;
+    font-style: normal;
+    margin-left: 30%;
+    margin-bottom: 20%;
+    font-size: 1em;
+    font-weight: 600;
+    align-self: center;
+    height: 7%;
+    width: 40%;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    align-self: flex-start;
+    transition: background-color 0.3s, box-shadow 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.back-home-button:hover {
+    background-color: rgb(121, 118, 118); 
+}
+
+.back-home-button:active {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
