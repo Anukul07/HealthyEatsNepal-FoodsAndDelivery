@@ -15,6 +15,7 @@
     }
 }
 .explore-main-container{
+    font-family: Roboto;
     height: 67%;
     width: 80%;
     margin-top: 7vh;
@@ -55,18 +56,35 @@
     margin-bottom: 10px;
     position: relative;
 }
-.food-one {
-    background-color: #f9f9f9;
+.foods {
+    background: linear-gradient(to bottom, #213053, #122056);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.3s ease;
+    animation: illuminate 3s infinite alternate;
+    color: white;
+
 }
-.food-one:hover {
+@keyframes illuminate {
+    0% {
+        background: linear-gradient(to bottom, #213053, #122056);
+    }
+    50% {
+        background: linear-gradient(to bottom, #213053, #122056,#213053);
+    }
+    100% {
+        background: linear-gradient(to bottom,  #213053, #122056);
+    }
+}
+.foods:hover {
     transform: translateY(-5px);
     transition: transform 0.3s ease;
   }
-.food-one img { 
-    height: 180px;
-    width: 220px;
+.foods img { 
+    height: 160px;
+    width: 190px;
     animation: spin 4s linear infinite;
 }
 
@@ -80,4 +98,110 @@
     100% {
       transform: rotate(0deg);
     }
+}
+.foods img{
+    align-self: center;
+    margin-top: 0px;
+}
+.foods > p:nth-child(2){
+    margin-top: 4px;
+    align-self: flex-end;
+    font-family: Roboto;
+    font-size: 18px;
+    font-weight: 200;
+    margin-right: 4px;
+    margin-bottom: 5px;
+}
+.foods h3{
+    font-size: 20px;
+    align-self: center;
+    margin-top: 3px;
+}
+.foods > p:nth-child(4){
+    text-align: center;
+    margin-top: 7px;
+    font-size: 13x;
+    font-style: italic;
+    font-weight: bold;
+}
+.foods span{
+    display: inline-flex;
+    margin-top: 20px;
+    justify-content: center;
+}
+.foods span > button:first-child{
+    font-family: Roboto;
+    font-weight: bold;
+    height: 45px;
+    width: 130px;
+    padding-right: 10px;
+    padding-left: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    font-size: 15px;
+    border-radius: 7px;
+    border: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    background-color: rgb(70, 143, 203); 
+    transition: background-color 0.3s ease; 
+}
+.foods span > button:first-child:hover {
+    background-color: #ccc; 
+}
+.foods span > button:first-child:active {
+    transform: scale(0.95); 
+}
+.number-input {
+    display: flex;
+    align-items: center;
+    width: 130px; 
+    margin-left: 10px;
+  }
+.number-input button:nth-child(1){
+    background-color: white;
+    position: relative;
+    left: 5px;
+    width: 80px;
+    height: 35px; 
+    font-size: 20px;
+    font-weight: bold;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+    border-right: 1px solid rgb(9, 8, 8);
+    border: none;
+    cursor: pointer;
+}
+.number-input button:nth-child(3){
+    background-color: white;
+    cursor: pointer;
+    position: relative;
+    right: 5px;
+    width: 80px;
+    height: 35px; 
+    font-size: 20px;
+    font-weight: bold;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+    border: none;
+}
+.number-input button:hover {
+    background-color: rgb(70, 143, 203);
+}
+
+.number-input button:active {
+    transform: translateY(1px);
+}
+
+.number-input input {
+    font-family: Roboto;
+    width: 60px; 
+    border-radius: 5px;
+    font-size: 20px;
+    font-weight: 300;
+    height: 35px; 
+    border: none;
+    text-align: center;
 }

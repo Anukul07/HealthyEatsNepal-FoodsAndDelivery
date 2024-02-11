@@ -5,6 +5,9 @@ import '../styles/Explore.css'
 import { useState } from 'react'
 import { useEffect } from 'react'
 import axios from 'axios'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCartShopping } from '@fortawesome/free-solid-svg-icons'
+
 
 function Explore() {
   const [foods, setFoods] = useState([]);
@@ -18,6 +21,20 @@ function Explore() {
       });
   }, []);
 
+  //for quanitity selection 
+  const [value, setValue] = useState(1);
+  const decreaseValue = () => {
+    if (value > 1) {
+      setValue(value - 1);
+    }
+  };
+  const increaseValue = () => {
+    if (value < 10) {
+      setValue(value + 1);
+    }
+  };
+
+
   return (
     <div className='explore-container'>
        <Header/>
@@ -28,17 +45,23 @@ function Explore() {
           </div>
           {foods.map(food => (
           <div className='explore-foods'>
-              <div className='food-one'>
-                <img src={`http://localhost:8080/Images/${food.foodImage}`}/>
+              <div className='foods'>
+                <img src={`/Images/${food.foodImage}`}/>
                 <p>Rs.{food.foodPrice}</p>
                 <h3>{food.foodName}</h3>
                 <p>{food.foodDescription}</p>
-                <span><button>Add to cartt</button><input type="number" min={"1"}/></span>
+                <span><button><FontAwesomeIcon icon={faCartShopping} size="2xl" style={{color: "#74C0FC"}} />Add to cart</button>
+                  <div className="number-input">
+                      <button onClick={decreaseValue}>-</button>
+                      <input type="text" value={value} readOnly />
+                      <button onClick={increaseValue}>+</button>
+                  </div>
+                </span>
               </div>
-              <div className='food-two'>
+              <div className='foods'>
               food 2
               </div>
-              <div className='food-three'>
+              <div className='foods'>
               food 3
               </div>
           </div>
