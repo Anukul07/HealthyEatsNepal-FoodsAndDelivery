@@ -59,6 +59,8 @@ public class FoodServiceImpl implements FoodService {
         }
         food.setFoodImage(fileName);
         food.setFoodDescription(foodDto.getFoodDescription());
+        food.setFoodPrice(foodDto.getFoodPrice());
+        food.setFoodType(foodDto.getFoodType());
         foodRepository.save(food);
     }
 
@@ -75,6 +77,8 @@ public class FoodServiceImpl implements FoodService {
             throw new RuntimeException(e);
         }
         existingFood.setFoodImage(fileName);
+        existingFood.setFoodPrice(foodDto.getFoodPrice());
+        existingFood.setFoodType(foodDto.getFoodType());
         foodRepository.save(existingFood);
         return "Food updated";
     }
@@ -84,6 +88,8 @@ public class FoodServiceImpl implements FoodService {
         Food existingFood = foodRepository.findByFoodId(foodDto.getFoodId());
         existingFood.setFoodDescription(foodDto.getFoodDescription());
         existingFood.setFoodName(foodDto.getFoodName());
+        existingFood.setFoodType(foodDto.getFoodType());
+        existingFood.setFoodPrice(foodDto.getFoodPrice());
         foodRepository.save(existingFood);
         return "Food updated";
     }

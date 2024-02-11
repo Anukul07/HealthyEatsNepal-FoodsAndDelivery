@@ -23,6 +23,11 @@ public class FoodDto {
     @NotNull
     private String foodDescription;
 
+    @NotNull
+    private int foodPrice;
+
     private MultipartFile foodImage;
+
+    private String foodType;
 
 }

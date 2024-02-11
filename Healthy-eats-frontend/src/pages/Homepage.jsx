@@ -27,7 +27,7 @@ function Homepage(){
                         <img className='card-1-image' src="src/assets/instruction-images/binoculars.png"/>
                     </div>
                     <div>
-                        <h2>Explore meals </h2>
+                        <h2>Explore meals</h2>
                     </div>
                     <div>
                         <p>We have good meals <br /> just needed for your <br />healthy lifestyle</p>
