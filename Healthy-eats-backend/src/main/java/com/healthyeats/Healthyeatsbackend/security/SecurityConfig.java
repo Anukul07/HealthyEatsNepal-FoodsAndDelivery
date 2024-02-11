@@ -44,8 +44,10 @@ public class SecurityConfig {
                 .and()
                 .authorizeRequests()
                 .requestMatchers("/api/auth/**").permitAll()
-                .requestMatchers(HttpMethod.POST, "/api/food/save-food").hasRole("USER")
-                .requestMatchers(HttpMethod.POST, "/api/order").hasRole("USER")
+                .requestMatchers("/api/food/**").permitAll()
+                .requestMatchers("/api/order/**").permitAll()
+//                .requestMatchers(HttpMethod.POST, "/api/food/save-food").hasRole("USER")
+//                .requestMatchers(HttpMethod.POST, "/api/order").hasRole("USER")
                 .anyRequest().authenticated()
                 .and()
                 .httpBasic();
