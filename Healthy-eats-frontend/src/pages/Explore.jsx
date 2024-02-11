@@ -2,9 +2,22 @@ import React from 'react'
 import Header from '../components/Header.jsx'
 import Footer from '../components/Footer.jsx'
 import '../styles/Explore.css'
-
+import { useState } from 'react'
+import { useEffect } from 'react'
+import axios from 'axios'
 
 function Explore() {
+  const [foods, setFoods] = useState([]);
+  useEffect(() => {
+    axios.get('http://localhost:8080/api/food/get-all')
+      .then(response => {
+        setFoods(response.data);
+      })
+      .catch(error => {
+        console.error('Error fetching data:', error);
+      });
+  }, []);
+
   return (
     <div className='explore-container'>
        <Header/>
@@ -13,9 +26,14 @@ function Explore() {
                 <button>Vegeterian</button>
                 <button>Non Vegeterian</button>
           </div>
+          {foods.map(food => (
           <div className='explore-foods'>
               <div className='food-one'>
-                food 1
+                <img src={`http://localhost:8080/Images/${food.foodImage}`}/>
+                <p>Rs.{food.foodPrice}</p>
+                <h3>{food.foodName}</h3>
+                <p>{food.foodDescription}</p>
+                <span><button>Add to cartt</button><input type="number" min={"1"}/></span>
               </div>
               <div className='food-two'>
               food 2
@@ -23,26 +41,8 @@ function Explore() {
               <div className='food-three'>
               food 3
               </div>
-              <div className='food-four'>
-              food 4
-              </div>
-              <div className='food-five'>
-              food 5
-              </div>
-              <div className='food-six'>
-              food 6
-              </div>
-              <div className='food-seven'>
-              food 7
-              </div>
-              <div className='food-eight'>
-              food 8
-              </div>
-              <div className='food-nine'>
-              food 9
-              </div>
           </div>
-
+          ))}
         </div>
        <Footer/>
     </div>
