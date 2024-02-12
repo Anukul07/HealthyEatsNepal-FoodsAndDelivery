@@ -46,5 +46,9 @@ public class FoodController {
         foodService.deleteById(foodDto);
     }
 
+    @GetMapping("/get-all/filter/{foodType}")
+    public List<Food> getAllFoodFilter(@PathVariable String foodType) {
+        return foodService.findAllVegNonVeg(foodType);
+    }
 
 }

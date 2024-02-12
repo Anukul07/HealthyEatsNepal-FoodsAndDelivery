@@ -20,4 +20,6 @@ public interface FoodService {
 
     String updateFoodWithoutImage(FoodDto foodDto);
 
+    List<Food> findAllVegNonVeg(String foodType);
+
 }
