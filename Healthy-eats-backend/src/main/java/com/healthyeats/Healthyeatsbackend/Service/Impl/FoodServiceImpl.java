@@ -93,4 +93,9 @@ public class FoodServiceImpl implements FoodService {
         foodRepository.save(existingFood);
         return "Food updated";
     }
+
+    @Override
+    public List<Food> findAllVegNonVeg(String foodType) {
+        return foodRepository.getAllByFoodType(foodType);
+    }
 }

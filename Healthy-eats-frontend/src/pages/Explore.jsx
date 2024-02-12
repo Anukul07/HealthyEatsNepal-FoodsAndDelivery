@@ -1,75 +1,90 @@
-import React from 'react'
-import Header from '../components/Header.jsx'
-import Footer from '../components/Footer.jsx'
-import '../styles/Explore.css'
-import { useState } from 'react'
-import { useEffect } from 'react'
-import axios from 'axios'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCartShopping } from '@fortawesome/free-solid-svg-icons'
+  import React, { useState, useEffect, useContext} from 'react';
+  import axios from 'axios';
+  import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+  import { faCartShopping, faUtensils, faDrumstickBite, faCarrot } from '@fortawesome/free-solid-svg-icons';
+  import Header from '../components/Header.jsx';
+  import Footer from '../components/Footer.jsx';
+  import '../styles/Explore.css';
 
+  function Explore() {
+    const [foods, setFoods] = useState([]);
+    const [selectedFoodType, setSelectedFoodType] = useState("All");
+    const [cartCount, setCartCount] = useState(0);
 
-function Explore() {
-  const [foods, setFoods] = useState([]);
-  useEffect(() => {
-    axios.get('http://localhost:8080/api/food/get-all')
-      .then(response => {
-        setFoods(response.data);
-      })
-      .catch(error => {
-        console.error('Error fetching data:', error);
-      });
-  }, []);
+    useEffect(() => {
+      if (selectedFoodType === "All") {
+        axios.get('http://localhost:8080/api/food/get-all')
+          .then(response => {
+            const sortedFoods = response.data.sort((a, b) => a.foodId - b.foodId);
+            setFoods(sortedFoods.map(food => ({
+              ...food,  
+              quantity: 1
+            })));
+          })
+          .catch(error => {
+            console.error('Error fetching data:', error);
+          });
+      } else {  
+        axios.get(`http://localhost:8080/api/food/get-all/filter/${selectedFoodType}`)
+          .then(response => {
+            const sortedFoods = response.data.sort((a, b) => a.foodId - b.foodId);
+            setFoods(sortedFoods.map(food => ({
+              ...food,
+              quantity: 1
+            })));
+          })
+          .catch(error => {
+            console.error('Error fetching data:', error);
+          });
+      }
+    }, [selectedFoodType]);
 
-  //for quanitity selection 
-  const [value, setValue] = useState(1);
-  const decreaseValue = () => {
-    if (value > 1) {
-      setValue(value - 1);
-    }
-  };
-  const increaseValue = () => {
-    if (value < 10) {
-      setValue(value + 1);
-    }
-  };
-
-
-  return (
-    <div className='explore-container'>
-       <Header/>
+    const handleFoodTypeChange = (foodType) => {
+      setSelectedFoodType(foodType);
+    };
+    const handleQuantityChange = (foodId, newQuantity) => {
+      newQuantity = Math.max(1, Math.min(10, newQuantity));
+      setFoods(prevFoods => prevFoods.map(food => {
+        if (food.foodId === foodId) {
+          return {
+            ...food,
+            quantity: newQuantity
+          };
+        }
+        return food;
+      }));
+    };
+    return (
+      <div className='explore-container'>
+        <Header cartCount={cartCount}/>
         <div className='explore-main-container'>
           <div className='explore-selection'>
-                <button>Vegeterian</button>
-                <button>Non Vegeterian</button>
+            <button className={`foodtype-selection-button ${selectedFoodType === "All" ? 'active' : ''}`} onClick={() => handleFoodTypeChange("All")}><FontAwesomeIcon icon={faUtensils}/> All</button>
+            <button className={`foodtype-selection-button ${selectedFoodType === "Vegeterian" ? 'active' : ''}`} onClick={() => handleFoodTypeChange("Vegeterian")}><FontAwesomeIcon icon={faCarrot} style={{ color: "#e24a08" }} /> Vegetarian</button>
+            <button className={`foodtype-selection-button ${selectedFoodType === "Non-vegeterian" ? 'active' : ''}`} onClick={() => handleFoodTypeChange("Non-vegeterian")}><FontAwesomeIcon icon={faDrumstickBite} style={{ color: "#c40606" }} /> Non-vegetarian</button>
           </div>
-          {foods.map(food => (
           <div className='explore-foods'>
-              <div className='foods'>
-                <img src={`/Images/${food.foodImage}`}/>
+            {foods.map(food => (
+              <div key={food.foodId} className='foods'>
+                <img src={`/Images/${food.foodImage}`} alt={food.foodName} />
                 <p>Rs.{food.foodPrice}</p>
                 <h3>{food.foodName}</h3>
                 <p>{food.foodDescription}</p>
-                <span><button><FontAwesomeIcon icon={faCartShopping} size="2xl" style={{color: "#74C0FC"}} />Add to cart</button>
+                <span>
+                  <button><FontAwesomeIcon icon={faCartShopping} size="2xl" style={{ color: "#74C0FC" }} />Add to cart</button>
                   <div className="number-input">
-                      <button onClick={decreaseValue}>-</button>
-                      <input type="text" value={value} readOnly />
-                      <button onClick={increaseValue}>+</button>
+                    <button onClick={() => handleQuantityChange(food.foodId, food.quantity - 1)}>-</button>
+                    <input type="text" value={food.quantity} readOnly />
+                    <button onClick={() => handleQuantityChange(food.foodId, food.quantity + 1)}>+</button>
                   </div>
                 </span>
               </div>
-              <div className='foods'>
-              food 2
-              </div>
-              <div className='foods'>
-              food 3
-              </div>
+            ))}
           </div>
-          ))}
         </div>
-       <Footer/>
-    </div>
-  )
-}
+        <Footer />
+      </div>
+    );
+  }
 
-export default Explore
+  export default Explore;
