@@ -1,0 +1,116 @@
+.main-cart-container{
+    height: 100vh;
+    width: 100vw;
+    font-family: Roboto;
+    background-image: url('src/assets/backgroud-blur.png');
+    background-size: cover;  
+    object-fit: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    position: absolute;
+    animation: gradientAnimation 5s ease-in-out infinite alternate;
+}
+@keyframes gradientAnimation {
+    0%, 100% {
+        background-position: 0% 0%;
+    }
+    50% {
+        background-position: 0% 100%;
+    }
+}
+.back-to-explore{
+   margin-left: 12vw;
+   margin-top: 7vh;
+}
+.back-to-explore button{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 165px;
+    height: 42px;
+    border-radius: 5px;
+    padding-left: 10px;
+    padding-right: 7px;
+    border: none;
+    color: white;
+    background: linear-gradient(to right, #305e8d, #0d1b2a);
+    font-size: 17px;
+    cursor: pointer;
+    transition: box-shadow 0s;
+}
+.back-to-explore button:active{
+    box-shadow: 1px 1px 20px rgba(3, 24, 72, 0.3);
+    background: linear-gradient(to left, #305e8d, #0d1b2a);
+}
+.cart-container{
+    background-color: rgb(219, 216, 216);
+    height: 80vh;
+    width: 76vw;
+    margin-top: 1vh;
+    margin-left: 12vw;
+    border-radius: 7px;
+    display: flex;
+}
+.food-checkout{
+    width: 60%;
+    height: 100%;
+    background-color: aqua;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.food-checkout-header{
+    height: 15%;
+    background-color: #305e8d;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding-left: 30px;
+}
+.food-checkout-items{
+    display: flex;
+    flex-direction: column;
+    height: 70%;
+    padding-left: 30px;
+    padding-right: 30px;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    background-color: aliceblue;
+    overflow: auto;
+}
+.food-checkout-selection{
+    /* background-color: #828b94; */
+    margin-top: 20px;
+    height: 150px;
+    border-bottom: 1px solid rgb(178, 175, 175);
+}
+
+
+
+
+
+
+.food-checkout-footer{
+    height: 15%;
+    background-color: bisque;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+    padding-right: 30px;
+}
+.order-checkout{
+    width: 34%;
+    height: 85%;
+    margin-left: 3%;
+    margin-top: 4%;
+    background-color: aquamarine;
+    border-radius: 7px;
+}
+
+
+
+
+
+
+

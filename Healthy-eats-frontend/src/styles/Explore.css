@@ -3,7 +3,6 @@
     width: 100vw;
     background-image: url('src/assets/backgroud-blur.png');
     background-size: cover;  
-    object-fit: cover;  
     background-position: center;
     background-repeat: no-repeat;
     background-size: 100% 200%; 
@@ -69,13 +68,6 @@
 .foodtype-selection-button:active::before{
     width: 100%;
 }
-
-
-
-
-
-
-
 .explore-foods{
     flex: 1;
     width: 100%;   
