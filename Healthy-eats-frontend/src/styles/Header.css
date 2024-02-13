@@ -85,7 +85,6 @@
     transition: background-color 0.3s ease;
     color: white;
 }
-
 .cart-button:hover,
 .profile-button:hover,
 .logout-button:hover{
@@ -101,6 +100,41 @@
     width: 20%;
     margin-left: 10%;
     margin-right: 10%;
+}
+.cart-button.animated {
+    animation: vibrate 0.3s infinite alternate;
+}
+  
+@keyframes vibrate {
+from {
+    transform: translateX(-2px); 
+}
+to {
+    transform: translateX(2px); 
+}
+}
+.cart-length{
+    font-family: Roboto;
+    font-size: 15px;
+    border: 1px solid rgb(16, 15, 72);
+    padding-left: 7px;
+    padding-right: 7px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    border-radius: 20px;
+    margin-left: 14px;
+    animation: fallFromTop 1s ease forwards;
+}
+
+@keyframes fallFromTop {
+    0% {
+      transform: translateY(-100%);
+      opacity: 0;
+    }
+    100% {
+      transform: translateY(0);
+      opacity: 1;
+    }
 }
 .profile-button-img{    
     width: 20%;

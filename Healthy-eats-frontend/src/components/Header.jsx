@@ -1,17 +1,19 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import '../styles/Header.css';
-
+import CartContext from '../CartContext';
 
 function Header(props) {
   const navigate = useNavigate();
   const [username, setUsername] = useState('');
   const [usernameFontSize, setUsernameFontSize] = useState('17px');
 
+  const {cartLength} = useContext(CartContext);
+  const cartButtonClass = cartLength > 0 ? "cart-button animated" : "cart-button";
+
   useEffect(() => {
-    // Function to fetch username
     const fetchUsername = async () => {
       const accessToken = localStorage.getItem('accessToken');
       if (accessToken) {
@@ -37,6 +39,9 @@ function Header(props) {
       navigate('/login');
     }
   };
+  const handleCartButtonClick = () => {
+    navigate('/Cart')
+  }
 
   const handleLogout = () => {
     localStorage.removeItem('accessToken');
@@ -66,8 +71,8 @@ function Header(props) {
           </Link>
         </div>
         <div className="nav-right-section">
-          <button className="cart-button">
-            <img className="cart-button-img" src="src/assets/header-images/shopping-cart.png" alt="cart" /> Cart({props.cartCount})
+          <button className={cartButtonClass} onClick={handleCartButtonClick}>
+            <img className="cart-button-img" src="src/assets/header-images/shopping-cart.png" alt="cart"/> Cart <span className={cartLength>0 ? 'cart-length' : ""}>{cartLength > 0 && cartLength}</span>
           </button>
           <button className="profile-button" onClick={handleProfileButtonClick}>
             <img src="src/assets/header-images/user.png" alt="profile" className="profile-button-img" />
