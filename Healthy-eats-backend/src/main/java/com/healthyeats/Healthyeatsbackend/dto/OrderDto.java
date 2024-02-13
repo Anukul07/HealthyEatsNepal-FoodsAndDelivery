@@ -25,6 +25,8 @@ public class OrderDto {
 
     private String deliveryTime;
 
+    private String deliveryType;
+
     private String specialRequest;
 
     private String deliveryAddress;

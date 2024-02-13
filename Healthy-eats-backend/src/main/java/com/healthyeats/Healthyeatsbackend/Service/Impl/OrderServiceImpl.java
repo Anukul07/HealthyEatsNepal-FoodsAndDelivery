@@ -39,6 +39,7 @@ public class OrderServiceImpl implements OrderService {
         order.setOrderDate(orderDto.getOrderDate());
         order.setOrderConfirmation(orderDto.getOrderConfirmation());
         order.setDeliveryTime(orderDto.getDeliveryTime());
+        order.setDeliveryType(orderDto.getDeliveryType());
         user.setId(orderDto.getUserId());
         order.setUser(user);
         order.setPaymentType(orderDto.getPaymentType());
@@ -78,6 +79,7 @@ public class OrderServiceImpl implements OrderService {
         orderDto.setOrderDate(order.getOrderDate());
         orderDto.setTotalPrice(order.getTotalPrice());
         orderDto.setSubscriptionWeek(order.getSubscriptionWeek());
+        orderDto.setDeliveryTime(order.getDeliveryTime());
         orderDto.setDeliveryTime(order.getDeliveryTime());
         orderDto.setSpecialRequest(order.getSpecialRequest());
         orderDto.setUserId(order.getUser().getId());
