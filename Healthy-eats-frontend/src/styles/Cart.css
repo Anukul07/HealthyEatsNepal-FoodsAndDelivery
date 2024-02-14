@@ -19,7 +19,7 @@
     }
 }
 .back-to-explore{
-   margin-left: 12vw;
+   margin-left: 5vw;
    margin-top: 7vh;
 }
 .back-to-explore button{
@@ -43,68 +43,247 @@
     background: linear-gradient(to left, #305e8d, #0d1b2a);
 }
 .cart-container{
-    background-color: rgb(219, 216, 216);
+    background-color: rgb(255, 255, 255);
     height: 80vh;
-    width: 76vw;
+    width: 90vw;
     margin-top: 1vh;
-    margin-left: 12vw;
+    margin-left: 5vw;
     border-radius: 7px;
     display: flex;
+    padding-bottom: 2vh;
+    box-shadow: 0px 0px 5px rgb(106, 104, 104);
 }
 .food-checkout{
-    width: 60%;
+    width: 70%;
+    margin-left: 20px;
     height: 100%;
-    background-color: aqua;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
 }
 .food-checkout-header{
-    height: 15%;
-    background-color: #305e8d;
+    height: 10%;
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
     align-items: center;
-    padding-left: 30px;
+}
+.food-checkout-header h1{
+    font-style: normal;
+    font-style: italic;
+    font-weight: 200;
+    font-size: 38px;
+    font-family: Roboto;
+    letter-spacing: 2px;
+    margin-left: 20px;
+    margin-top: 10px;
+}
+.food-selection-container{
+    height: 70%;
+    width: 100%;
+    overflow-y: auto;
+    padding-left: 2px;
+    padding-right: 2px;
+    padding-bottom: 5px;
+    display: flex;
+    flex-wrap: wrap;
 }
 .food-checkout-items{
     display: flex;
-    flex-direction: column;
-    height: 70%;
-    padding-left: 30px;
-    padding-right: 30px;
-    padding-top: 30px;
-    padding-bottom: 30px;
-    background-color: aliceblue;
-    overflow: auto;
+    flex-wrap: wrap;
+    width: 100%;
+    height: auto;
+    flex-direction: row;
+    align-items: centers;
+    border-bottom: 1px solid rgb(168, 163, 163);
 }
 .food-checkout-selection{
-    /* background-color: #828b94; */
-    margin-top: 20px;
-    height: 150px;
-    border-bottom: 1px solid rgb(178, 175, 175);
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    align-items: center;
+}
+.checkout-food-name p{
+    font-family: Roboto;
+    font-style: italic;
+    font-weight: 600;
+    color: #353131;
+    font-size: 16px;
+}
+.checkout-quantity-section{
+    height: 31px;
+    width: 80px;
+}
+.quantity-button{
+    width: 100%;
+    height: 100%;
+}
+.quantity-button button{
+    border: none;
+    height: 92%;
+    width: 30%;
+    font-weight: 100; 
+    font-size: 14px;
+    background-color: aliceblue;
+    cursor: pointer;
+    transition: box-shadow 0.3s, transform 0.3s, background-color 0.3s, color 0.3s;
+}
+.quantity-button button:hover {
+    background: linear-gradient(to bottom, darkblue, lightblue);
+    color: white;
+}
+.quantity-button button:active,
+.quantity-button button:focus {
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3); 
+    transform: translateY(1px); 
+}
+.quantity-button button:nth-of-type(1){
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    color: #9b9696; 
+    background-color: #f5f5f5;
+}
+.quantity-button button:nth-of-type(2){
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    background-color: #f5f5f5;
+    color: #9b9696; 
+}
+.quantity-button input{
+    width: 40%;
+    background-color: #f5f5f5;
+    color: #9b9696; 
+    font-size: 14px;
+    height: 92%;
+    border: none;
+    text-align: center;
+}
+.checkout-delivery-week-section{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: fit-content;
+}
+.react-datepicker-wrapper {
+    width: fit-content;
+}
+.react-datepicker__input-container input {
+    height: 20px; 
+    width: fit-content;
+    border: none; 
+    border-radius: 5px; 
+    cursor: pointer;
+    padding: 2px;
+    margin: 4px;
 }
 
+.react-datepicker__input-container input:focus {
+    outline: none; 
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2); 
+}
 
+.react-datepicker__input-container input::placeholder {
+    color: #9b9696; 
+    font-size: 14px; 
+}
+.checkout-delivery-week-section {
+    background-color: #f5f5f5;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); 
+}
 
+.checkout-delivery-time-section select,
+.checkout-delivery-type-section select {
+    width: 110px; 
+    height: 20px; 
+    border: none;
+    border-radius: 5px;
+    padding: 0;
+    color: #9b9696; 
+    font-size: 14px; 
+    background-color: #fff; 
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1); 
+    cursor: pointer; 
+}
 
+.checkout-delivery-time-section select:focus,
+.checkout-delivery-type-section select:focus {
+    outline: none; 
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3); 
+}
+
+.checkout-delivery-time-section select option,
+.checkout-delivery-type-section select option {
+    font-size: 12px; 
+}
+
+.checkout-delivery-time-section,
+.checkout-delivery-type-section {
+    background-color: #f5f5f5; 
+    border-radius: 10px; 
+    padding: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.checkout-price-section p{
+    font-family: Roboto;
+    font-weight: 100;
+    color: #353131;
+    font-size: 14px;
+}
+
+.delete-food {
+    border: none;
+    cursor: pointer;
+    transition: transform 0.2s ease-in-out; 
+    background: none;
+}
+  
+.delete-food:hover {
+    transform: scale(1.1); 
+    animation: vibrate 0.2s ease-in-out; 
+}
+  
+@keyframes vibrate {
+    0% { transform: translate(1px, 1px) rotate(0deg); }
+    10% { transform: translate(-1px, -2px) rotate(-1deg); }
+    20% { transform: translate(-3px, 0px) rotate(1deg); }
+    30% { transform: translate(3px, 2px) rotate(0deg); }
+    40% { transform: translate(1px, -1px) rotate(1deg); }
+    50% { transform: translate(-1px, 2px) rotate(-1deg); }
+    60% { transform: translate(-3px, 1px) rotate(0deg); }
+    70% { transform: translate(3px, 1px) rotate(-1deg); }
+    80% { transform: translate(-1px, -1px) rotate(1deg); }
+    90% { transform: translate(1px, 2px) rotate(0deg); }
+    100% { transform: translate(1px, -2px) rotate(-1deg); }
+}
+  
+.delete-food:active {
+transform: translateY(2px);
+}
 
 
 .food-checkout-footer{
     height: 15%;
-    background-color: bisque;
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: flex-end;
     padding-right: 30px;
 }
+.food-checkout-footer h3{
+    letter-spacing: 1px;
+    font-style: italic;
+    font-weight: 800;
+}
 .order-checkout{
-    width: 34%;
+    width: 30%;
     height: 85%;
-    margin-left: 3%;
+    margin-left: 2%;
+    margin-right: 2%;
     margin-top: 4%;
-    background-color: aquamarine;
+    background-color: rgb(103, 106, 105);
     border-radius: 7px;
 }
 

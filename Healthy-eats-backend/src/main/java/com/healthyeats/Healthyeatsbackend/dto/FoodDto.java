@@ -28,6 +28,8 @@ public class FoodDto {
 
     private MultipartFile foodImage;
 
+    private String foodImageString;
+
     private String foodType;
 
 }

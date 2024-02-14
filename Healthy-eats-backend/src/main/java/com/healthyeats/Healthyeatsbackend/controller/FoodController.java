@@ -2,6 +2,7 @@ package com.healthyeats.Healthyeatsbackend.controller;
 
 import com.healthyeats.Healthyeatsbackend.Service.FoodService;
 import com.healthyeats.Healthyeatsbackend.dto.FoodDto;
+import com.healthyeats.Healthyeatsbackend.dto.FoodImageDto;
 import com.healthyeats.Healthyeatsbackend.entity.Food;
 import jakarta.annotation.security.PermitAll;
 import jakarta.validation.Valid;
@@ -49,6 +50,11 @@ public class FoodController {
     @GetMapping("/get-all/filter/{foodType}")
     public List<Food> getAllFoodFilter(@PathVariable String foodType) {
         return foodService.findAllVegNonVeg(foodType);
+    }
+
+    @GetMapping("/get-food-image/{foodIds}")
+    public List<FoodImageDto> getFoodImage(@PathVariable List<Integer> foodIds){
+        return foodService.getFoodImages(foodIds);
     }
 
 }
