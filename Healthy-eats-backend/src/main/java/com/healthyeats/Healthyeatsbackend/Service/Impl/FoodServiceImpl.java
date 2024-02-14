@@ -2,6 +2,7 @@ package com.healthyeats.Healthyeatsbackend.Service.Impl;
 
 import com.healthyeats.Healthyeatsbackend.Service.FoodService;
 import com.healthyeats.Healthyeatsbackend.dto.FoodDto;
+import com.healthyeats.Healthyeatsbackend.dto.FoodImageDto;
 import com.healthyeats.Healthyeatsbackend.entity.Food;
 import com.healthyeats.Healthyeatsbackend.repository.FoodRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -98,4 +100,23 @@ public class FoodServiceImpl implements FoodService {
     public List<Food> findAllVegNonVeg(String foodType) {
         return foodRepository.getAllByFoodType(foodType);
     }
+
+    @Override
+    public List<FoodImageDto> getFoodImages(List<Integer> foodIds) {
+        List<Food> foods = foodRepository.findAllById(foodIds);
+        List<FoodImageDto> foodDtos = new ArrayList<>();
+
+        for (Food food : foods) {
+            FoodImageDto foodDto = FoodImageDto.builder()
+                    .foodId(food.getFoodId())
+                    .foodName(food.getFoodName())
+                    .foodImage(food.getFoodImage())
+                    .foodPrice(food.getFoodPrice())
+                    .build();
+            foodDtos.add(foodDto);
+        }
+        return foodDtos;
+    }
+
+
 }

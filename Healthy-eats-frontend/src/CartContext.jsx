@@ -17,11 +17,32 @@ export function CartProvider({ children }) {
       setFoods(prevState => [...prevState, { foodId, quantity }]);
     }
   };
+  const updateFoodQuantity = (foodId, newQuantity) => {
+    setFoods(prevState => {
+      const updatedFoods = [...prevState];
+      const foodIndex = updatedFoods.findIndex(food => food.foodId === foodId);
+      if (foodIndex !== -1) {
+        updatedFoods[foodIndex].quantity = newQuantity;
+      }
+      return updatedFoods;
+    });
+  };
+
+  const removeFromCart = (foodId) => {
+    setFoods(prevState => {
+      const updatedFoods = [...prevState];
+      const foodIndex = updatedFoods.findIndex(food => food.foodId === foodId);
+      if (foodIndex !== -1) {
+        updatedFoods.splice(foodIndex, 1);
+      }
+      return updatedFoods;
+    });
+  };
 
   const cartLength = foods.length;
 
   return (
-    <CartContext.Provider value={{ foods, addToCart, cartLength }}>
+    <CartContext.Provider value={{ foods, addToCart, cartLength, updateFoodQuantity, removeFromCart}}>
       {children}
     </CartContext.Provider>
   );
