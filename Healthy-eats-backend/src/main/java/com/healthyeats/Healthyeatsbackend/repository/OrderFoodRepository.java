@@ -10,5 +10,6 @@ import java.util.List;
 @Repository
 public interface OrderFoodRepository extends JpaRepository<OrderFood, Integer> {
 
+
     List<OrderFood> findAllByOrder(Order order);
 }

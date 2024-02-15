@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import '../styles/Header.css';
 import CartContext from '../CartContext';
 
-function Header(props) {
+function Header() {
   const navigate = useNavigate();
   const [username, setUsername] = useState('');
   const [usernameFontSize, setUsernameFontSize] = useState('17px');
@@ -49,7 +49,6 @@ function Header(props) {
     setUsernameFontSize('17px');
     navigate('/');
   };
-
   return (
     <div className="header">
       <div className="promo-code">
@@ -65,9 +64,6 @@ function Header(props) {
           </Link>
           <Link to="/aboutUs" className='nav-link'> 
             ABOUT US
-          </Link>
-          <Link to="/" className='nav-link'>
-            CONTACT
           </Link>
         </div>
         <div className="nav-right-section">

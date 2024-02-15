@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState, useRef } from 'react';
 import axios from 'axios';
 import CartContext from '../CartContext'; 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -11,6 +11,7 @@ import 'react-datepicker/dist/react-datepicker.css'
 function Cart() {
   const { foods, updateFoodQuantity, removeFromCart}  = useContext(CartContext); 
   const [foodDetails, setFoodDetails] = useState([]);
+  const [userId, setUserId] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -48,6 +49,7 @@ function Cart() {
 
   const [deliveryTime, setDeliveryTime] = useState('');
 
+
   const handleDeliveryTimeChange = (event) => {
     setDeliveryTime(event.target.value);
   };
@@ -65,9 +67,101 @@ function Cart() {
     return acc + getPrice(food, quantity);
   }, 0);
 
+const [paymentType, setPaymentType] = useState(null);
+const [orderMessage, setOrderMessage] = useState('');
 
+const handlePaymentTypeChange = (type) => {
+  setPaymentType(type);
+};
 
-  return (
+const specialRequestRef = useRef();
+const deliveryAddressRef = useRef();
+
+const handlePlaceOrder = async () => {
+  if (foodDetails.length === 0) {
+    setOrderMessage('Your cart is empty');
+    return;
+  }
+
+  const deliveryDetails = deliveryAddressRef.current.value;
+  if (!deliveryDetails) {
+    setOrderMessage('Please enter your delivery details');
+    return;
+  }
+
+  const specialRequestDetail = specialRequestRef.current.value.trim();
+
+  if (!paymentType) {
+    setOrderMessage('Please select your payment type');
+    return;
+  }
+  const orderData = {
+    orderId: 0,
+    userId: userId,
+    totalPrice: subtotal,
+    orderItems: foods.map(food => ({
+      foodId: food.foodId,
+      quantity: food.quantity,
+      foodName: food.foodName
+    })),
+    subscriptionWeek: startDate && endDate ? `${startDate.toLocaleDateString()} - ${endDate.toLocaleDateString()}` : "",
+    deliveryTime: deliveryTime,
+    deliveryType: deliveryType,
+    specialRequest: specialRequestDetail,
+    deliveryAddress: deliveryDetails,
+    paymentType: paymentType,
+    orderDate: new Date().toISOString(), 
+    orderConfirmation: "Confirmed",
+    foodReadyConfirmation: "Not Ready"
+  };
+
+  try {
+    const accessToken = localStorage.getItem('accessToken');
+    const response = await axios.post('http://localhost:8080/api/order/place', orderData, {
+      headers: {
+        Authorization: accessToken
+      }
+    });
+    if (response.status === 200) {
+      setOrderMessage('Order has been placed');
+    } else {
+      navigate('/Login');
+      setOrderMessage('Failed to place order');
+    }
+  } catch (error) {
+    if (error.response && error.response.status === 403) {
+      navigate('/login');
+    } else {
+      console.error('Error placing order:', error);
+      setOrderMessage('Error placing order');
+      navigate('/Login');
+    }
+  }
+};
+
+useEffect(() => {
+  const fetchUserId = async () => {
+    try {
+      const accessToken = localStorage.getItem('accessToken');
+      if (accessToken) {
+        const response = await axios.get('http://localhost:8080/api/auth/userId', {
+          headers: {
+            Authorization: accessToken
+          }
+        });
+        setUserId(response.data);
+      } else {
+        console.log("User not logged in yet")
+      }
+    } catch (error) {
+      console.error('Error fetching userId:', error);
+    }
+  };
+  fetchUserId();
+}, []);
+console.log(userId);
+
+return (
     <div className='main-cart-container'>
       <div className='back-to-explore'>
         <button onClick={handleBackButtonChange}>Back to explore <FontAwesomeIcon icon={faCircleLeft} style={{color: "#ffffff",}} /></button>
@@ -78,7 +172,10 @@ function Cart() {
             <h1>Cart</h1>
           </div>
           <div className='food-selection-container'>
-            {foodDetails.map(food => (
+          {foodDetails.length === 0 ? (
+                      <h3>Your cart is empty.</h3>
+                    ) : (
+            foodDetails.map(food => (
               <div key={food.foodId} className='food-checkout-items'>
                 <div className='food-checkout-selection'>
                   <div className='checkout-image-section'>
@@ -142,22 +239,33 @@ function Cart() {
                   </div>
                 </div>
               </div>
-            ))}
+            ))
+            )}
           </div>
           <div className='food-checkout-footer'>
             <h3>Subtotal : Rs {subtotal}</h3>
           </div>
         </div>
         <div className='order-checkout'>
-            <div className='order-checkout-'>
-
+            <div className='order-checkout-heading'>
+              <h1>Order details</h1>
             </div>
-            <div>
-
+            <div className='order-checkout-body'>
+                  <input type="text" ref={specialRequestRef} class="special-request-input" maxlength="100"  placeholder="Special request: Please provide any special instructions"/>
+                  <input type="text" ref={deliveryAddressRef} class="delivery-details-input" maxlength="100" placeholder="Delivery details: Address, contact information, etc."/>
             </div>
-            <div>
-
+            <div className='order-checkout-footer'>
+              <span className='checkout-buttons'>
+                <button className={`payment-button ${paymentType === 'khalti' ? 'selected' : ''}`} onClick={() => handlePaymentTypeChange('khalti')}>
+                <img src="src/assets/button_khalti.png" alt="Khalti"/></button>
+                <button className={`payment-button ${paymentType === 'cash-on-delivery' ? 'selected' : ''}`} onClick={() => handlePaymentTypeChange('cash-on-delivery')}>
+                <img src="src/assets/cod.png" alt="Cash on Delivery"/>
+                </button>
+              </span>
+                <p>{orderMessage}</p>
+                <button className='place-order' onClick={handlePlaceOrder}>Place order</button>
             </div>
+            
         </div>
       </div>
     </div>

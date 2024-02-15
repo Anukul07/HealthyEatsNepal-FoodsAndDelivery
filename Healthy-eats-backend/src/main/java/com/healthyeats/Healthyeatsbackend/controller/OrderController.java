@@ -2,19 +2,13 @@ package com.healthyeats.Healthyeatsbackend.controller;
 
 import com.healthyeats.Healthyeatsbackend.Service.OrderService;
 import com.healthyeats.Healthyeatsbackend.dto.OrderDto;
-import com.healthyeats.Healthyeatsbackend.entity.Order;
-import com.healthyeats.Healthyeatsbackend.entity.User;
-import com.healthyeats.Healthyeatsbackend.repository.UserRepository;
 import com.healthyeats.Healthyeatsbackend.security.JWTGenerator;
 import jakarta.annotation.security.PermitAll;
-import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/order")
@@ -22,10 +16,12 @@ import java.util.Optional;
 @CrossOrigin
 public class OrderController {
     private final OrderService orderService;
+    private final JWTGenerator jwtGenerator;
 
     @Autowired
-    public OrderController(OrderService orderService, JWTGenerator jwtGenerator) {
+    public OrderController(OrderService orderService, JWTGenerator jwtGenerator, JWTGenerator jwtGenerator1) {
         this.orderService = orderService;
+        this.jwtGenerator = jwtGenerator1;
     }
 
     @PostMapping("/place")

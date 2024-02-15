@@ -36,6 +36,7 @@ public class OrderServiceImpl implements OrderService {
     public void placeOrder(OrderDto orderDto) {
         Order order = new Order();
         User user = new User();
+        System.out.println(orderDto);
         order.setOrderDate(orderDto.getOrderDate());
         order.setOrderConfirmation(orderDto.getOrderConfirmation());
         order.setDeliveryTime(orderDto.getDeliveryTime());
@@ -59,6 +60,7 @@ public class OrderServiceImpl implements OrderService {
                 orderFood.setOrder(order);
                 orderFood.setFood(food);
                 orderFood.setQuantity(orderFoodDto.getQuantity());
+                System.out.println(orderFoodDto.getQuantity());
                 orderFoodRepository.save(orderFood);
             }
         }
