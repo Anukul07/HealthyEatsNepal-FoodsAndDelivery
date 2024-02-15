@@ -67,7 +67,6 @@ public class AuthController {
         user.setRole(Role.USER);
         user.setPassword(passwordEncoder.encode((registerDto.getPassword())));
         userRepository.save(user);
-
         return new ResponseEntity<>("User registered success!", HttpStatus.OK);
     }
 
@@ -79,7 +78,16 @@ public class AuthController {
             String jwtToken = token.substring(7);
             userEmail = jwtGenerator.getUsernameFromJWT(jwtToken);
         }
-        System.out.println(userEmail);
         return userService.getUsername(userEmail);
+    }
+    @GetMapping("userId")
+    public int getUserId(HttpServletRequest request){
+        String token = request.getHeader("Authorization");
+        String userEmail = null;
+        if (StringUtils.hasText(token) && token.startsWith("Bearer ")) {
+            String jwtToken = token.substring(7);
+            userEmail = jwtGenerator.getUsernameFromJWT(jwtToken);
+        }
+        return userService.getUserIdByEmail(userEmail);
     }
 }

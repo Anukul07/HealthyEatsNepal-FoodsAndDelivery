@@ -7,4 +7,6 @@ import org.springframework.stereotype.Service;
 public interface UserService {
 
     String getUsername(String email);
+
+    int getUserIdByEmail(String email);
 }

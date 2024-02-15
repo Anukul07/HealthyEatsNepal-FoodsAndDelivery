@@ -285,10 +285,120 @@ transform: translateY(2px);
     margin-top: 4%;
     background-color: rgb(103, 106, 105);
     border-radius: 7px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+}
+.order-checkout-heading{
+    height: 10%;
+    width: fit-content;
+}
+.order-checkout-heading h1{
+    color: white;
+    font-weight: 300;
+    letter-spacing: 2px;
+}
+.order-checkout-body{
+    height: 30%;
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.order-checkout-body input {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    background: transparent;
+    width: 100%;
+    height: 40%;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    font-size: 12px;
+    border: 1px solid white;
+    word-wrap: break-word; 
+}
+
+.order-checkout-body input::placeholder {
+    color: #999;
 }
 
 
+.order-checkout-footer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 30%;
+}
 
+.checkout-buttons{
+    display: flex;
+    height: 70%;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.checkout-buttons {
+    display: flex;
+    align-items: center;
+}
+
+.checkout-buttons button {
+padding: 0px;
+margin-left: 20px;
+border: none;
+border-radius: 10px;
+background: none;
+position: relative;
+overflow: hidden;
+cursor: pointer;
+outline: none; 
+}
+
+.checkout-buttons button img {
+width: 160px;
+border-radius: 10px;
+transition: filter 0.3s ease;
+}
+
+.checkout-buttons button.selected {
+background-color: #ADD8E6; 
+}
+
+.checkout-buttons button.selected img {
+filter: none;
+background-color: #ADD8E6; 
+}
+
+.checkout-buttons button:hover {
+filter: grayscale(100%) opacity(0.7);
+}
+
+.checkout-buttons button:active {
+filter: grayscale(100%) opacity(0.9);
+}
+.place-order{
+    width: fit-content;
+    align-self: center;
+    width: 165px;
+    height: 42px;
+    border-radius: 5px;
+    padding-left: 10px;
+    padding-right: 7px;
+    border: none;
+    color: white;
+    background: linear-gradient(to right, #305e8d, #0d1b2a);
+    font-size: 17px;
+    cursor: pointer;
+    transition: box-shadow 0s;
+}
+.place-order:active{
+    box-shadow: 1px 1px 20px rgba(3, 24, 72, 0.3);
+    background: linear-gradient(to left, #305e8d, #0d1b2a);
+}
 
 
 

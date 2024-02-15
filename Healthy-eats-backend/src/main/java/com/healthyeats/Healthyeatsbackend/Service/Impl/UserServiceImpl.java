@@ -27,4 +27,9 @@ public class UserServiceImpl implements UserService {
             return "User not found";
         }
     }
+
+    @Override
+    public int getUserIdByEmail(String email) {
+        return userRepository.getUserIdByEmail(email);
+    }
 }
