@@ -21,9 +21,15 @@ function LoginComponent() {
           const response = await axios.post('http://localhost:8080/api/auth/login', { email, password });
           const { accessToken,tokenType } = response.data;
           localStorage.setItem('accessToken', tokenType+accessToken);
-          navigate("/");
-          
-      } catch (error) {
+          const roleResponse = await axios.get(`http://localhost:8080/api/auth/getRole/${email}`);
+          const role = roleResponse.data;
+          if (role === 'USER') {
+            navigate('/');
+          } else if (role === 'ADMIN') {
+            navigate('/AdminPage', {state : {email}});
+          }          
+        } 
+        catch (error) {
           if (error.response.status === 403) {
               setErrorMessage('Check your email and password and try again.');
           } else {
