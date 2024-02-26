@@ -19,6 +19,8 @@
 }
 .nav-left-section{
    margin-left: 70px;
+   display: flex;
+   flex-wrap: wrap;
 }  
 .nav-right-section{
     margin-right: 10vw;

@@ -7,6 +7,9 @@
     background-repeat: no-repeat;
     background-size: 100% 200%; 
     animation: gradientAnimation 5s ease-in-out infinite alternate;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 @keyframes gradientAnimation {
@@ -19,7 +22,7 @@
 }
 .explore-main-container{
     font-family: Roboto;
-    height: 68%;
+    height: 63vh;
     width: 67%;
     margin-top: 7vh;
     margin-bottom: 7vh;

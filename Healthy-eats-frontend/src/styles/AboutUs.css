@@ -1,58 +1,61 @@
 .about-us-container{
     height: 93vh;
-    background-image: url(/src/assets/about-us-bg.jpg);
+    background-image: url(/src/assets/backgroud-blur.png);
     background-size: cover;    
     background-position: center;
     background-repeat: no-repeat;
     position: relative;
     width: 100%;
-    height: 95vh;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 .about-us-body{
-    position: absolute;
+    height: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-top: 3vh;
-    margin-left: 120px;
-    height: 70vh;
-    width: 50vw;
 }
 .body-logo-img{
-    height: 160px;
-    width: 180px;
+    height: 270px;
+    width: 300px;
     margin-left: 2vw;
     margin-bottom: 0px;
 }
-.body-info-img{
-    height: 100%;
-    border-top-left-radius: 20px;
-    border-bottom-left-radius: 20px;
-}
 .body-logo{
-    height: 34%;
-    margin-bottom: 2vh;
+    margin-right: 2vh;
+    width: 38%;
+    height: 40%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
-.body-logo h2{
+.body-logo p{
     font-family: Roboto;
-    font-style: italic;
-    font-size: 3rem;
-    font-weight: 100;
+    font-weight: 700;
     color: white;
-    
+    margin-left: 20px;
 }
 .body-info{
-    height: 66%;
     border-radius: 20px;
 }
 .body-info{
     display: flex;
     align-items: flex-start;
+    width: 50%;
+    overflow-y: scroll;
+}
+.body-info-img{
+    height: 100%;
+    width: 60%;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
 }
 .body-info p{
     margin: 5% 10% 10% 10%;
     font-family: Roboto;
     font-weight: 100;
     font-size: 1rem;
-
 }

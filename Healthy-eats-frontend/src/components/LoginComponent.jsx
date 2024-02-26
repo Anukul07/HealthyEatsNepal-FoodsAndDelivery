@@ -1,7 +1,7 @@
 import React from 'react'
 import '../styles/LoginComponent.css'
 import { Link } from 'react-router-dom'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import axios from 'axios'; 
 import RegistrationComponent from './RegistrationComponent'
 import { useNavigate } from 'react-router-dom';
@@ -31,6 +31,7 @@ function LoginComponent() {
           }
       }
   };
+
 
   return (
     <>
