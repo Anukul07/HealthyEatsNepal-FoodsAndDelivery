@@ -1,6 +1,7 @@
 package com.healthyeats.Healthyeatsbackend.controller;
 
 import com.healthyeats.Healthyeatsbackend.Service.UserService;
+import com.healthyeats.Healthyeatsbackend.dto.AdminUserDto;
 import com.healthyeats.Healthyeatsbackend.dto.AuthResponseDTO;
 import com.healthyeats.Healthyeatsbackend.dto.LoginDto;
 import com.healthyeats.Healthyeatsbackend.dto.RegisterDto;
@@ -21,6 +22,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collections;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/auth")
@@ -90,4 +92,16 @@ public class AuthController {
         }
         return userService.getUserIdByEmail(userEmail);
     }
+
+    @GetMapping("getRole/{email}")
+    public String getRole(@PathVariable String email){
+        return userService.getRoleFromEmail(email);
+    }
+
+    @GetMapping("get-all-users")
+    public List<AdminUserDto> getAllUsers(){
+        return userService.getAdminUsers();
+    }
+
+
 }
