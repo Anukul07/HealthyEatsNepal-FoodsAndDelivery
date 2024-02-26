@@ -28,6 +28,7 @@ public class FoodServiceImpl implements FoodService {
     public FoodServiceImpl(FoodRepository foodRepository) {
         this.foodRepository = foodRepository;
     }
+
     @Value("${upload.path}")
     private String uploadPath;
 
