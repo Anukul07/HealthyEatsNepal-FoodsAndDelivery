@@ -42,9 +42,9 @@ public class FoodController {
         foodService.updateFoodWithoutImage(foodDto);
     }
 
-    @PostMapping("/delete-food")
-    public void deleteFood(@RequestBody FoodDto foodDto){
-        foodService.deleteById(foodDto);
+    @PostMapping("/delete-food/{foodId}")
+    public void deleteFood(@PathVariable int foodId){
+        foodService.deleteById(foodId);
     }
 
     @GetMapping("/get-all/filter/{foodType}")
@@ -56,5 +56,4 @@ public class FoodController {
     public List<FoodImageDto> getFoodImage(@PathVariable List<Integer> foodIds){
         return foodService.getFoodImages(foodIds);
     }
-
 }

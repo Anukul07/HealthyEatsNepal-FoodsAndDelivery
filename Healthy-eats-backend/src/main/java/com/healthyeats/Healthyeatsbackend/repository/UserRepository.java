@@ -2,8 +2,10 @@ package com.healthyeats.Healthyeatsbackend.repository;
 
 import com.healthyeats.Healthyeatsbackend.entity.Role;
 import com.healthyeats.Healthyeatsbackend.entity.User;
+import jakarta.transaction.Transactional;
 import org.springframework.data.domain.Example;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
@@ -20,4 +22,8 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     Role getUserRole(String email);
 
     List<User> findAll();
+
+    @Modifying
+    @Transactional
+    void deleteAllById(int userId);
 }

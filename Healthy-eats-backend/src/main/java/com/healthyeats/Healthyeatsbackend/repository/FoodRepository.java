@@ -15,4 +15,6 @@ public interface FoodRepository extends JpaRepository<Food,Integer> {
 
     List<Food> getAllByFoodType(String foodType);
 
+    List<Food> findAll();
+
 }

@@ -103,5 +103,9 @@ public class AuthController {
         return userService.getAdminUsers();
     }
 
+    @PostMapping("delete-user/{userId}")
+    public String deleteUser(@PathVariable int userId){
+        return userService.deleteUserById(userId);
+    }
 
 }
