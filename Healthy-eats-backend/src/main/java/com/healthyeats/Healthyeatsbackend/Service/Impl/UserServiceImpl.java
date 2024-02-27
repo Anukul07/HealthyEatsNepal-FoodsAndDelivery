@@ -55,4 +55,14 @@ public class UserServiceImpl implements UserService {
                         .build())
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public String deleteUserById(int userId) {
+        try {
+            userRepository.deleteAllById(userId);
+            return "User deleted successfully";
+        }catch (Exception e){
+            return "Couldnt not delete the user " + e.getMessage();
+        }
+    }
 }

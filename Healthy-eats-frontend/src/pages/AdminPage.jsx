@@ -26,11 +26,14 @@ function AdminPage() {
   return (
     <div className='admin-page-container'>
       <div className='admin-page-top'>
-        <img src="src/assets/logo.png" className='admin-page-logo'/>
-        <h2>ADMIN OF HEALTHY EATS NEPAL</h2>
-        <h3>{email}</h3>
-        <button onClick={handleLogout}>logout</button>
-
+        <div className='admin-page-top-left'>
+          <img src="src/assets/logo.png" className='admin-page-logo'/>
+          <h2>ADMIN OF HEALTHY EATS NEPAL</h2>
+        </div>
+        <div className='admin-page-top-right'>
+          <h3>{email}</h3>
+          <button onClick={handleLogout}>logout</button>
+        </div>
       </div>
       <div className='admin-page-middle'>
         <div className='admin-middle-sidebar'>

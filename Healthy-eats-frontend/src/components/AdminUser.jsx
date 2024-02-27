@@ -16,7 +16,19 @@ function AdminUser() {
         console.error('Error fetching users:', error);
       });
   }, []);
-
+  const deleteUser = (userId) => {
+    const confirmed = window.confirm("Are you sure you want to delete this user?");
+    if(confirmed){
+      axios.post(`http://localhost:8080/api/auth/delete-user/${userId}`)
+      .then(response => {
+        console.log('User deleted successfully');
+        setUsers(users.filter(user => user.userId !== userId));
+      })
+      .catch(error => {
+        console.error('Error deleting user:', error);
+      });
+    }  
+  };
   return (
     <div className='admin-user-container'>
       {users.map(user => (
@@ -42,7 +54,7 @@ function AdminUser() {
             <h3>{user.phoneNumber}</h3>
           </div>
           <div className='admin-user-card-delete'>
-            <button><FontAwesomeIcon icon={faTrash} size='2xl' style={{ color: "#000000" }} /></button>
+            <button onClick={() => deleteUser(user.userId)}><FontAwesomeIcon icon={faTrash} size='2xl' style={{ color: "#000000" }} /></button>
           </div>
         </div>
       ))}

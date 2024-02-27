@@ -44,8 +44,8 @@ public class FoodServiceImpl implements FoodService {
     }
 
     @Override
-    public String deleteById(FoodDto foodDto) {
-        foodRepository.deleteById(foodDto.getFoodId());
+    public String deleteById(int foodId) {
+        foodRepository.deleteById(foodId);
         return "food deleted successfully";
     }
 
@@ -118,6 +118,7 @@ public class FoodServiceImpl implements FoodService {
         }
         return foodDtos;
     }
+
 
 
 }

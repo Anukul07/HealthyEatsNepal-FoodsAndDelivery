@@ -14,7 +14,7 @@ public interface FoodService {
 
     List<Food> findALl();
 
-    String deleteById(FoodDto foodDto);
+    String deleteById(int foodId);
 
     void saveFood(FoodDto foodDto);
 
@@ -25,7 +25,6 @@ public interface FoodService {
     List<Food> findAllVegNonVeg(String foodType);
 
     List<FoodImageDto> getFoodImages(List<Integer> foodIds);
-
 
 
 }

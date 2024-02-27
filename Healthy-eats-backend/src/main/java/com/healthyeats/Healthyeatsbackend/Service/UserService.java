@@ -17,4 +17,6 @@ public interface UserService {
     String getRoleFromEmail(String email);
 
     List<AdminUserDto> getAdminUsers();
+
+    String deleteUserById(int userId);
 }
