@@ -11,6 +11,7 @@ import { CartProvider } from './CartContext.jsx';
 import AdminPage from './pages/AdminPage.jsx';
 import AdminSidebar from './components/AdminSidebar.jsx';
 import AdminDashboard from './components/AdminDashboard.jsx';
+import ForgotPassword from './components/ForgotPassword.jsx';
 
 const router = createBrowserRouter([
   {
@@ -44,7 +45,7 @@ const router = createBrowserRouter([
   {
     path : '/AdminDashboard',
     element : <AdminDashboard/>
-  }
+  },
 ]);
 
 ReactDOM.createRoot(document.getElementById('root')).render(

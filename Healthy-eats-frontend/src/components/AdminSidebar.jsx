@@ -1,40 +1,23 @@
-import React, { useState } from 'react'
-import '../styles/AdminSidebar.css'
+import React from 'react';
+import '../styles/AdminSidebar.css';
 
-function AdminSidebar({onDashboardClick, onFoodsClick, onUsersClick, onOrdersClick}) {
-    const [activeButton, setActiveButton] = useState('dashboard');
-    const handleDashboardClick = () => {
-        setActiveButton('dashboard');
-        onDashboardClick();
-      };
-      const handleFoodsClick = () => {
-        setActiveButton('foods');
-        onFoodsClick();
-      };
-      const handleUsersClick = () => {
-        setActiveButton('users');
-        onUsersClick();
-      };
-      const handleOrdersClick = () => {
-        setActiveButton('orders');
-        onOrdersClick();
-      };
+function AdminSidebar({ activeComponent, setActiveComponent }) {
   return (
     <div className='sidebar'>
-        <div>
-        <button className={`dashboard-sidebar-button ${activeButton === 'dashboard' ? 'active' : ''}`} onClick={handleDashboardClick}>Dashboard</button>
-        </div>
-        <div>
-            <button className={`users-sidebar-button ${activeButton === 'users' ? 'active' : ''}`} onClick={handleUsersClick}>Users</button>
-        </div>
-        <div>
-             <button className={`foods-sidebar-button ${activeButton === 'foods' ? 'active' : ''}`} onClick={handleFoodsClick}>Foods</button>
-        </div>
-        <div>
-            <button className={`orders-sidebar-button ${activeButton === 'orders' ? 'active' : ''}`} onClick={handleOrdersClick}>Orders</button>
-        </div>
+      <div>
+        <button className={`dashboard-sidebar-button ${activeComponent === 'dashboard' ? 'active' : ''}`} onClick={() => setActiveComponent('dashboard')}>Dashboard</button>
+      </div>
+      <div>
+        <button className={`users-sidebar-button ${activeComponent === 'users' ? 'active' : ''}`} onClick={() => setActiveComponent('users')}>Users</button>
+      </div>
+      <div>
+        <button className={`foods-sidebar-button ${activeComponent === 'foods' ? 'active' : ''}`} onClick={() => setActiveComponent('foods')}>Foods</button>
+      </div>
+      <div>
+        <button className={`orders-sidebar-button ${activeComponent === 'orders' ? 'active' : ''}`} onClick={() => setActiveComponent('orders')}>Orders</button>
+      </div>
     </div>
-  )
+  );
 }
 
-export default AdminSidebar
+export default AdminSidebar;

@@ -54,7 +54,7 @@ function AdminUser() {
             <h3>{user.phoneNumber}</h3>
           </div>
           <div className='admin-user-card-delete'>
-            <button onClick={() => deleteUser(user.userId)}><FontAwesomeIcon icon={faTrash} size='2xl' style={{ color: "#000000" }} /></button>
+            <button onClick={() => deleteUser(user.userId)}><FontAwesomeIcon icon={faTrash} size='xl' style={{ color: "#000000" }} /></button>
           </div>
         </div>
       ))}

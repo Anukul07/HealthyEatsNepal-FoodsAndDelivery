@@ -1,78 +1,72 @@
-import React from 'react'
-import '../styles/AdminPage.css'
-import AdminSidebar from '../components/AdminSidebar.jsx'
-import AdminDashboard from '../components/AdminDashboard.jsx'
-import AdminFood from '../components/AdminFood.jsx'
-import AdminUser from '../components/AdminUser.jsx'
-import AdminOrder from '../components/AdminOrder.jsx'
-import { useState } from 'react'
-import { useLocation } from 'react-router-dom'
-import { useNavigate } from 'react-router-dom'
-
+import React, { useState, useEffect } from 'react';
+import '../styles/AdminPage.css';
+import AdminSidebar from '../components/AdminSidebar.jsx';
+import AdminDashboard from '../components/AdminDashboard.jsx';
+import AdminFood from '../components/AdminFood.jsx';
+import AdminUser from '../components/AdminUser.jsx';
+import AdminOrder from '../components/AdminOrder.jsx';
+import axios from 'axios';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 function AdminPage() {
-  const [showAdminDashboard, setShowAdminDashboard] = useState(true);
-  const [showAdminFood, setShowAdminFood] = useState(false);
-  const [showAdminUser, setShowAdminUser] = useState(false);
-  const [showAdminOrder, setShowAdminOrder] = useState(false);
-
+  const [activeComponent, setActiveComponent] = useState('dashboard');
   const location = useLocation();
   const navigate = useNavigate();
   const email = location.state ? location.state.email : ''; 
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const fetchData = async () => {
+    try {
+      const responses = await Promise.all([
+        axios.get('http://localhost:8080/api/auth/count-rows'),
+        axios.get('http://localhost:8080/api/food/count-rows'),
+        axios.get('http://localhost:8080/api/order/count-rows'),
+      ]);
+      setUsersCount(responses[0].data);
+      setFoodsCount(responses[1].data);
+      setOrdersCount(responses[2].data);
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  };
+
+  const handleSetActiveComponent = (component) => {
+    setActiveComponent(component);
+  };
+
   const handleLogout = () => {
     localStorage.removeItem('accessToken'); 
     navigate('/Login'); 
   };
+
   return (
     <div className='admin-page-container'>
       <div className='admin-page-top'>
         <div className='admin-page-top-left'>
-          <img src="src/assets/logo.png" className='admin-page-logo'/>
+          <img src="src/assets/logo.png" className='admin-page-logo' alt="Company logo"/>
           <h2>ADMIN OF HEALTHY EATS NEPAL</h2>
         </div>
         <div className='admin-page-top-right'>
           <h3>{email}</h3>
-          <button onClick={handleLogout}>logout</button>
+          <button onClick={handleLogout}>Logout</button>
         </div>
       </div>
       <div className='admin-page-middle'>
         <div className='admin-middle-sidebar'>
-          <AdminSidebar 
-            onDashboardClick={() => {
-              setShowAdminUser(false);
-              setShowAdminFood(false);
-              setShowAdminDashboard(true);
-              setShowAdminOrder(false);
-            }} 
-            onFoodsClick={() => {
-              setShowAdminUser(false);
-              setShowAdminFood(true);
-              setShowAdminDashboard(false);
-              setShowAdminOrder(false);
-            }} 
-            onUsersClick={() => {
-              setShowAdminUser(true);
-              setShowAdminFood(false);
-              setShowAdminDashboard(false);
-              setShowAdminOrder(false);
-            }} 
-            onOrdersClick={() => {
-              setShowAdminUser(false);
-              setShowAdminFood(false);
-              setShowAdminDashboard(false);
-              setShowAdminOrder(true); 
-            }} 
-          />
+          <AdminSidebar activeComponent={activeComponent} setActiveComponent={handleSetActiveComponent} />
         </div>
         <div className='admin-middle-body'>
-          {showAdminDashboard && <AdminDashboard/>}
-          {showAdminFood && <AdminFood/>}
-          {showAdminUser && <AdminUser/>}
-          {showAdminOrder && <AdminOrder/>}
+          {activeComponent === 'dashboard' && <AdminDashboard setActiveComponent={handleSetActiveComponent} />}
+          {activeComponent === 'foods' && <AdminFood />}
+          {activeComponent === 'users' && <AdminUser />}
+          {activeComponent === 'orders' && <AdminOrder />}
         </div>
       </div>
     </div>
-  )
+  );
 }
 
-export default AdminPage
+export default AdminPage;

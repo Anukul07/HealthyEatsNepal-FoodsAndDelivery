@@ -1,0 +1,82 @@
+.admin-order-container{
+    height: 100%;
+    width: 100%;
+    border-radius: 10px;
+    background-color: rgb(226, 240, 246);
+    position: relative;
+    overflow-y: auto;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+.admin-order-cards{
+    margin: 4%;
+    height: 500px;
+    width: 300px;
+    background-color: rgb(255, 255, 255);
+    box-shadow: 0px 0px 2px rgb(154, 153, 153);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    font-family: Roboto;
+    letter-spacing: 1px;
+}
+.admin-order-mid{
+    padding: 2%;
+    width: 90%;
+    height: 70%;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+.admin-order-details2{
+    padding-bottom: 2%;
+    margin: 4%;
+    border-bottom: 1px solid black;
+}
+.admin-order-buttons{
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+}
+
+.admin-order-buttons button {
+    display: flex;
+    justify-content: space-around;
+    letter-spacing: 1px;
+    align-items: center;
+    width: 90px;
+    height: 30px;
+    font-family: Roboto;
+    font-size: 14px;
+    border: 1px solid rgb(217, 215, 215);
+    background-color: rgb(255, 255, 255);
+    border-radius: 10px;
+    box-shadow: 0px 0px 3px rgb(157, 154, 154);
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+}
+
+.admin-order-buttons button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(169, 169, 169, 0.5);
+    transition: left 0.3s;
+}
+
+.admin-order-buttons button:hover::before,
+.admin-order-buttons button:active::before {
+    left: 0;
+}
+
+.admin-order-buttons button:active {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); 
+}
+

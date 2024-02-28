@@ -2,7 +2,7 @@ import React from 'react'
 import '../styles/AdminFood.css'
 import { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTrash , faFloppyDisk,faPlus} from '@fortawesome/free-solid-svg-icons';
+import { faTrash , faFloppyDisk,faPlus, faEdit} from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
 import { useRef } from 'react';
 
@@ -34,14 +34,6 @@ function AdminFood() {
     const updatedFoods = [...foods];
     updatedFoods[index].foodImage = file;
     setFoods(updatedFoods);
-    const reader = new FileReader();
-    reader.onload = () => {
-      const imageUrl = reader.result;
-      const imageButton = document.getElementById(`admin-food-image-button-${index}`);
-      const imageElement = imageButton.querySelector('img');
-      imageElement.src = imageUrl;
-    };
-    reader.readAsDataURL(file);
   };
   const handleAddCard = () => {
     const newFoodCard = {
@@ -55,7 +47,33 @@ function AdminFood() {
     setFoods([...foods, newFoodCard]);
   };
   
-  const handleSave = (food) => {
+  const handleSave = (food) =>{
+    const requiredFields = ['foodName', 'foodDescription', 'foodPrice', 'foodType', 'foodImage'];
+    const isAnyFieldEmpty = requiredFields.some(field => !food[field]);
+    if (isAnyFieldEmpty) {
+      alert('All fields must be filled.');
+      return;
+    }
+    const confirmed = window.confirm('Are you sure you want to save foods?');
+    if(confirmed){
+      const formData = new FormData();
+    formData.append('foodId', food.foodId);
+    formData.append('foodName', food.foodName);
+    formData.append('foodDescription', food.foodDescription);
+    formData.append('foodPrice', parseInt(String(food.foodPrice).replace(/\s+/g, ''), 10));
+    formData.append('foodType', food.foodType);
+    formData.append('foodImage', food.foodImage);
+    axios.post('http://localhost:8080/api/food/save-food', formData)
+    .then(response => {
+      console.log('Food updated successfully');
+    })
+    .catch(error => {
+      console.error('Error updating food:', error);
+    });
+  }
+}
+
+  const handleUpdate = (food) => {
     const requiredFields = ['foodName', 'foodDescription', 'foodPrice', 'foodType', 'foodImage'];
     const isAnyFieldEmpty = requiredFields.some(field => !food[field]);
     if (isAnyFieldEmpty) {
@@ -168,6 +186,9 @@ function AdminFood() {
                Save 
                <FontAwesomeIcon icon={faFloppyDisk} size="lg" style={{color: "#000000",}} />
              </button>
+             <button onClick={()=> handleUpdate(food)}>
+                Update <FontAwesomeIcon icon={faEdit} size="lg" style={{color: "#000000",}} />
+             </button>
              <button onClick={() => handleDelete(food.foodId, index)}>
                Delete 
                <FontAwesomeIcon icon={faTrash} size='lg' style={{ color: "#000000" }} />
@@ -182,7 +203,7 @@ function AdminFood() {
      </div>
     </div>
   );
-
+      
 }
 
 export default AdminFood

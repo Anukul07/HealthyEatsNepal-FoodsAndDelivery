@@ -56,4 +56,8 @@ public class FoodController {
     public List<FoodImageDto> getFoodImage(@PathVariable List<Integer> foodIds){
         return foodService.getFoodImages(foodIds);
     }
+    @GetMapping("count-rows")
+    public long countRows(){
+        return foodService.countRows();
+    }
 }

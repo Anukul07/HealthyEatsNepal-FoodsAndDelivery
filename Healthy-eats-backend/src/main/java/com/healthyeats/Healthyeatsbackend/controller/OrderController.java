@@ -31,10 +31,26 @@ public class OrderController {
         return ResponseEntity.ok("Order placed successfully.");
     }
 
-    @PostMapping("/retrieve")
-    public ResponseEntity<List<OrderDto>> getOrdersByUserId(@RequestBody OrderDto orderDto) {
-        List<OrderDto> orders = orderService.getOrdersByUserId(orderDto);
+    @GetMapping("/retrieve")
+    public ResponseEntity<List<OrderDto>> getAllOrders() {
+        List<OrderDto> orders = orderService.getAllOrders();
         return ResponseEntity.ok(orders);
     }
 
+    @PostMapping("/delete-by-id/{orderId}")
+    public String deleteOrderById(@PathVariable int orderId){
+        orderService.deleteOrderByOrderId(orderId);
+        return "Order deleted successfully";
+    }
+
+    @PostMapping("/update-status/{foodReadyConfirmation}/{orderId}")
+    public String updateFoodReadyConfirmation(@PathVariable String foodReadyConfirmation, @PathVariable int orderId){
+        orderService.updateFoodReadyConfirmation(foodReadyConfirmation,orderId);
+        return "Updated status";
+    }
+
+    @GetMapping("count-rows")
+    public long countRows(){
+        return orderService.countRows();
+    }
 }
