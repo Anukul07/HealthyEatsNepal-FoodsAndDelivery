@@ -17,15 +17,13 @@ public class OrderDto {
 
     private int userId;
 
+    private String customerName;
+
+    private String contactNumber;
+
     private int totalPrice;
 
     private List<OrderFoodDto> orderItems;
-
-    private String subscriptionWeek;
-
-    private String deliveryTime;
-
-    private String deliveryType;
 
     private String specialRequest;
 

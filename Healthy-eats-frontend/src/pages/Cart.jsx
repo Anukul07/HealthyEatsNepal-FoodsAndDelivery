@@ -102,11 +102,11 @@ const handlePlaceOrder = async () => {
     orderItems: foods.map(food => ({
       foodId: food.foodId,
       quantity: food.quantity,
-      foodName: food.foodName
+      foodName: food.foodName,
+      subscriptionWeek: startDate && endDate ? `${startDate.toLocaleDateString()} - ${endDate.toLocaleDateString()}` : "",
+      deliveryTime: deliveryTime,
+      deliveryType: deliveryType,
     })),
-    subscriptionWeek: startDate && endDate ? `${startDate.toLocaleDateString()} - ${endDate.toLocaleDateString()}` : "",
-    deliveryTime: deliveryTime,
-    deliveryType: deliveryType,
     specialRequest: specialRequestDetail,
     deliveryAddress: deliveryDetails,
     paymentType: paymentType,

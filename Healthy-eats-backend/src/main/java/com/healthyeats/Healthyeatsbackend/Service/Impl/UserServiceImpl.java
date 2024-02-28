@@ -5,20 +5,31 @@ import com.healthyeats.Healthyeatsbackend.dto.AdminUserDto;
 import com.healthyeats.Healthyeatsbackend.entity.Role;
 import com.healthyeats.Healthyeatsbackend.entity.User;
 import com.healthyeats.Healthyeatsbackend.repository.UserRepository;
+import com.healthyeats.Healthyeatsbackend.response.OtpResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
+import java.util.Random;
 import java.util.stream.Collectors;
 
 @Service
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
+    private final JavaMailSender javaMailSender;
+
+    private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    public UserServiceImpl(UserRepository userRepository) {
+    public UserServiceImpl(UserRepository userRepository, JavaMailSender javaMailSender, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
+        this.javaMailSender = javaMailSender;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
@@ -65,4 +76,52 @@ public class UserServiceImpl implements UserService {
             return "Couldnt not delete the user " + e.getMessage();
         }
     }
+    @Override
+    public long countRows() {
+        return userRepository.count();
+    }
+
+    @Override
+    public OtpResponse generateOtpToEmail(String email) {
+        SimpleMailMessage message = new SimpleMailMessage();
+        long emailExists = userRepository.emailExists(email);
+        if(emailExists==1){
+            String otp = generateOtp();
+            userRepository.updateOtp(otp,email);
+            message.setTo(email);
+            message.setSubject("Healthy eats password reset OTP");
+            message.setText("Your OTP for password reset is: " + otp +"\n" +"Best wishes from us.");
+            javaMailSender.send(message);
+            return new OtpResponse("success");
+        }else {
+            return new OtpResponse("failed");
+        }
+    }
+
+    @Override
+    public OtpResponse validateOtp(String email, String Otp) {
+        String otp = userRepository.otp(email);
+        if(Objects.equals(Otp,otp)){
+            return new OtpResponse("success");
+        }else {
+            return new OtpResponse("failed");
+        }
+    }
+    @Override
+    public void updatePassword(String password, String email) {
+        String encodedPassword =this.passwordEncoder.encode(password);
+        userRepository.updatePassword(encodedPassword,email);
+    }
+
+    public String generateOtp(){
+        Random random = new Random();
+        int otp = 100000 + random.nextInt(900000);
+        return String.valueOf(otp);
+    }
+
+
+
+
+
+
 }

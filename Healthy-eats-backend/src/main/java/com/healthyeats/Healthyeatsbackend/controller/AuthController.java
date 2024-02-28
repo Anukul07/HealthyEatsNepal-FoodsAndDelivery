@@ -8,6 +8,7 @@ import com.healthyeats.Healthyeatsbackend.dto.RegisterDto;
 import com.healthyeats.Healthyeatsbackend.entity.Role;
 import com.healthyeats.Healthyeatsbackend.entity.User;
 import com.healthyeats.Healthyeatsbackend.repository.UserRepository;
+import com.healthyeats.Healthyeatsbackend.response.OtpResponse;
 import com.healthyeats.Healthyeatsbackend.security.JWTGenerator;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -106,6 +107,27 @@ public class AuthController {
     @PostMapping("delete-user/{userId}")
     public String deleteUser(@PathVariable int userId){
         return userService.deleteUserById(userId);
+    }
+
+    @GetMapping("count-rows")
+    public long countRows(){
+        return userService.countRows();
+    }
+    @PostMapping("/send-otp/{email}")
+    public ResponseEntity<?> sendOtp(@PathVariable String email){
+        OtpResponse otpResponse = userService.generateOtpToEmail(email);
+        return ResponseEntity.ok(otpResponse);
+    }
+    @PostMapping("/validate-otp/{email}/{otp}")
+    public ResponseEntity<?> validateOtp(@PathVariable String email, @PathVariable String otp){
+        OtpResponse otpResponse = userService.validateOtp(email,otp);
+        return ResponseEntity.ok(otpResponse);
+    }
+
+    @PostMapping("/password-reset/{password}/{email}")
+    public String resetPassword(@PathVariable String password, @PathVariable String email){
+        userService.updatePassword(password,email);
+        return "success";
     }
 
 }

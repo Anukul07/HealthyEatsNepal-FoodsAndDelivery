@@ -29,5 +29,14 @@ public class OrderFood {
     @Column(name = "quantity")
     private int quantity;
 
+    @Column(name = "subscription_week")
+    private String subscriptionWeek;
+
+    @Column(name = "delivery_time")
+    private String deliveryTime;
+
+    @Column(name = "delivery_type")
+    private String deliveryType;
+
 
 }

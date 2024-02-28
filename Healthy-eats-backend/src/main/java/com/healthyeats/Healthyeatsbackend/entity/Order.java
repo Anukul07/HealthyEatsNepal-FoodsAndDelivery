@@ -28,15 +28,6 @@ public class Order {
     @Column(name = "total_price")
     private int totalPrice;
 
-    @Column(name = "subscription_week")
-    private String subscriptionWeek;
-
-    @Column(name = "delivery_time")
-    private String deliveryTime;
-
-    @Column(name = "delivery_type")
-    private String deliveryType;
-
     @Column(name = "delivery_address")
     private String deliveryAddress;
 

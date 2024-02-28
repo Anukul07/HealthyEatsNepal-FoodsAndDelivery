@@ -41,6 +41,9 @@ public class User{
     @Enumerated(EnumType.STRING)
     private Role role;
 
+    @Column(name = "otp", nullable = true)
+    private String otp;
+
     @JsonIgnore
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Order> order;

@@ -26,5 +26,5 @@ public interface FoodService {
 
     List<FoodImageDto> getFoodImages(List<Integer> foodIds);
 
-
+    long countRows();
 }

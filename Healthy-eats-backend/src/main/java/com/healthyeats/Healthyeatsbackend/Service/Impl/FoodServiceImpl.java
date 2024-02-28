@@ -119,6 +119,10 @@ public class FoodServiceImpl implements FoodService {
         return foodDtos;
     }
 
+    @Override
+    public long countRows() {
+        return foodRepository.count();
+    }
 
 
 }

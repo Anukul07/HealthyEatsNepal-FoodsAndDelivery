@@ -21,9 +21,32 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     @Query(value = "SELECT role from users where email = ?1" ,nativeQuery = true)
     Role getUserRole(String email);
 
+    @Query(value = "SELECT email from users where user_id = ?1", nativeQuery = true)
+    String getEmail(int userId);
+
     List<User> findAll();
 
     @Modifying
     @Transactional
     void deleteAllById(int userId);
+
+    @Query(value = "SELECT email from users where user_id=?1", nativeQuery = true)
+    String emailFromId(int userId);
+
+    @Query(value = "SELECT EXISTS(SELECT 1 FROM users WHERE email = ?1)", nativeQuery = true)
+    long emailExists(String email);
+
+    @Modifying
+    @Transactional
+    @Query(value = "UPDATE users SET otp = ?1 WHERE email = ?2",nativeQuery = true)
+    void updateOtp(String otp, String email);
+
+    @Query(value = "SELECT otp from users where email=?1",nativeQuery = true)
+    String otp(String email);
+
+    @Modifying
+    @Transactional
+    @Query(value = "UPDATE users SET password = ?1 WHERE email = ?2",nativeQuery = true)
+    void updatePassword(String password, String email);
+
 }
