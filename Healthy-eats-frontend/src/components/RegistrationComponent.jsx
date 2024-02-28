@@ -7,8 +7,6 @@ import ReactDOM from 'react-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCheck } from '@fortawesome/free-solid-svg-icons'
 
-
-
 function RegistrationComponent() {
     const [showLogin, setShowLogin] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
@@ -97,7 +95,7 @@ function RegistrationComponent() {
             }
             setTimeout(() => {
                 setErrorMessage('');
-            }, 6000);
+            }, 3000);
         }
     };
 

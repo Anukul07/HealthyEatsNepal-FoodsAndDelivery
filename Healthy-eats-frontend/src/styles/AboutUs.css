@@ -1,61 +1,83 @@
 .about-us-container{
-    height: 93vh;
+    height: 100vh;
     background-image: url(/src/assets/backgroud-blur.png);
     background-size: cover;    
     background-position: center;
     background-repeat: no-repeat;
     position: relative;
-    width: 100%;
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-}
-.about-us-body{
-    height: 100%;
+    width: 100vw;
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: space-between;
 }
-.body-logo-img{
-    height: 270px;
-    width: 300px;
-    margin-left: 2vw;
-    margin-bottom: 0px;
+.about-us-body-logo-img{
+    height: 90%;
+    width: 80%;
 }
-.body-logo{
-    margin-right: 2vh;
-    width: 38%;
-    height: 40%;
+.about-us-body-info-img{
+    height: 100%;
+    width: 100%;
+}
+.about-us-body{
+    height: 70%;
+    width: 90%;
+    display: flex;
+    background-image: linear-gradient(135deg, #10993e, #5b5e92);
+}
+.about-us-body-logo{
+    width: 25%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    background-image: linear-gradient(135deg, #10993e, #5b5e92);
+}
+.about-us-body-logo-1{
+    height: 50%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.about-us-body-logo-2{
+    height: 50%;
+    width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
 }
-.body-logo p{
+.about-us-body-logo-2 p{
     font-family: Roboto;
-    font-weight: 700;
+    font-size: 22px;
+    margin-bottom: 20px;
+    letter-spacing: 0.5px;
     color: white;
-    margin-left: 20px;
 }
-.body-info{
-    border-radius: 20px;
-}
-.body-info{
+.about-us-body-info{
+    background-color: #ffffff;
+    border-radius: 10px;
+    width: 70%;
+    height: 90%;
+    margin: 2%;
     display: flex;
-    align-items: flex-start;
+}
+.about-us-body-info-1{
+    height: 80%;
+    margin: 4%;
+    width: 34%;
+}
+.about-us-body-info-2{
+    padding: 3%;
+    height: 64%;
+    margin-top: 4%;
+    margin-right: 7%;
     width: 50%;
-    overflow-y: scroll;
+    position: relative;
+    overflow-y: auto;
 }
-.body-info-img{
-    height: 100%;
-    width: 60%;
-    border-top-left-radius: 20px;
-    border-bottom-left-radius: 20px;
-}
-.body-info p{
-    margin: 5% 10% 10% 10%;
+.about-us-body-info-2 p{
     font-family: Roboto;
-    font-weight: 100;
-    font-size: 1rem;
+    font-size: 20px;
 }
+

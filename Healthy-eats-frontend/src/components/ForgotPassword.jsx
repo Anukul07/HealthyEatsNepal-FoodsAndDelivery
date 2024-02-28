@@ -3,6 +3,7 @@ import axios from 'axios';
 import '../styles/ForgotPassword.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {faCircleChevronLeft} from '@fortawesome/free-solid-svg-icons';
+import LoginComponent from './LoginComponent';
 
 function ForgotPassword() {
   const [email, setEmail] = useState('');
@@ -13,6 +14,7 @@ function ForgotPassword() {
   const [successMessage, setSuccessMessage] = useState('');
   const [showOtpField, setShowOtpField] = useState(false);
   const [showPasswordFields, setShowPasswordFields] = useState(false);
+  const [showLogin, setShowLogin] = useState(false);
 
   const handleVerifyEmail = async () => {
     try {
@@ -106,56 +108,68 @@ function ForgotPassword() {
       handleResetPassword();
     }
   };
+
+  const handleBackToLoginButton = () =>{
+    setShowLogin(true);
+  }
+
   return (
-    <div className='forgot-password-container'>
-      <div className='forgot-password-topsection'>
-        <h1>Password Reset</h1>
-      </div>
-      <div className='forgot-password-middlesection'>
-      {!showOtpField && !showPasswordFields && (
-        <div className='forgot-password-email'>
-          <div className='forgot-password-email-field'>
-            <label htmlFor="email-field">Please enter your email</label>
-            <input type="email" name="email" id="email-field" value={email} onChange={handleEmailChange}/>
-          </div>
-          <div className='forgot-password-email-button'>
-            <button className='password-reset-buttons' onClick={handleVerifyEmail}>Verify email</button>
-          </div>
+    <>
+      {!showLogin ? (
+        <div className='forgot-password-container'>
+        <div className='forgot-password-topsection'>
+          <h1>Password Reset</h1>
         </div>
-      )}
-      {showOtpField && !showPasswordFields && (
-        <div className='forgot-password-otp'>
-          <div className='forgot-password-otp-field'>
-            <label htmlFor="otp-field">Enter the OTP sent to your email</label>
-            <input type="text" name="otp" id="otp-field" value={otp} onChange={handleOtpChange}/>
+        <div className='forgot-password-middlesection'>
+        {!showOtpField && !showPasswordFields && (
+          <div className='forgot-password-email'>
+            <div className='forgot-password-email-field'>
+              <label htmlFor="email-field">Please enter your email</label>
+              <input type="email" name="email" id="email-field" value={email} onChange={handleEmailChange}/>
+            </div>
+            <div className='forgot-password-email-button'>
+              <button className='password-reset-buttons' onClick={handleVerifyEmail}>Verify email</button>
+            </div>
           </div>
-          <div className='forgot-password-otp-button'>
-            <button className='password-reset-buttons' onClick={handleVerifyOtp}>Verify OTP</button>
+        )}
+        {showOtpField && !showPasswordFields && (
+          <div className='forgot-password-otp'>
+            <div className='forgot-password-otp-field'>
+              <label htmlFor="otp-field">Enter the OTP sent to your email</label>
+              <input type="text" name="otp" id="otp-field" value={otp} onChange={handleOtpChange}/>
+            </div>
+            <div className='forgot-password-otp-button'>
+              <button className='password-reset-buttons' onClick={handleVerifyOtp}>Verify OTP</button>
+            </div>
           </div>
+        )}
+        {showPasswordFields && (
+          <div className='forgot-password-password'>
+            <div className='forgot-password-password-field'>
+              <label htmlFor="password-field">Enter new password</label>
+              <input type="password" name="password" id="password-field" value={password} onChange={handlePasswordChange}/>
+            </div>
+            <div className='forgot-password-retypepassword-field'>
+              <label htmlFor="retype-password-field">Retype new password</label>
+              <input type="password" name="retype-password" id="retype-password-field" value={retypePassword} onChange={handleRetypePasswordChange}/>
+            </div>
+            <div className='forgot-password-password-button'>
+              <button onClick={handleSubmit} className='password-reset-buttons'>Reset Password</button>
+            </div>
+            {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
+            {successMessage && <p>{successMessage}</p>}
+          </div>
+        )}
         </div>
-      )}
-      {showPasswordFields && (
-        <div className='forgot-password-password'>
-          <div className='forgot-password-password-field'>
-            <label htmlFor="password-field">Enter new password</label>
-            <input type="password" name="password" id="password-field" value={password} onChange={handlePasswordChange}/>
-          </div>
-          <div className='forgot-password-retypepassword-field'>
-            <label htmlFor="retype-password-field">Retype new password</label>
-            <input type="password" name="retype-password" id="retype-password-field" value={retypePassword} onChange={handleRetypePasswordChange}/>
-          </div>
-          <div className='forgot-password-password-button'>
-            <button onClick={handleSubmit} className='password-reset-buttons'>Reset Password</button>
-          </div>
-          {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
-          {successMessage && <p>{successMessage}</p>}
+        <div className='forgot-password-bottomsection'>
+            <button onClick={handleBackToLoginButton}><FontAwesomeIcon icon={faCircleChevronLeft} size="sm" style={{color: "#000000",}} /> Back to login</button>
         </div>
-      )}
       </div>
-      <div className='forgot-password-bottomsection'>
-          <button><FontAwesomeIcon icon={faCircleChevronLeft} size="sm" style={{color: "#000000",}} /> Back to login</button>
-      </div>
-    </div>
+      ) : (
+        <LoginComponent/>
+      )
+      }
+    </>
   );
 }
 
