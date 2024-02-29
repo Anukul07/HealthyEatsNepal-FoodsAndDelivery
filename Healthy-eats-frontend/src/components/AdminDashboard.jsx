@@ -8,6 +8,7 @@ function AdminDashboard({ setActiveComponent }) {
   const [usersCount, setUsersCount] = useState(0);
   const [foodsCount, setFoodsCount] = useState(0);
   const [ordersCount, setOrdersCount] = useState(0);
+  const [unauthorized, setUnauthorized] = useState(false);
 
   useEffect(() => {
     fetchData();
@@ -15,19 +16,42 @@ function AdminDashboard({ setActiveComponent }) {
 
   const fetchData = async () => {
     try {
+      const accessToken = localStorage.getItem('accessToken');
+      if (!accessToken) {
+        throw new Error('Unauthorized');
+      }
       const responses = await Promise.all([
-        axios.get('http://localhost:8080/api/auth/count-rows'),
-        axios.get('http://localhost:8080/api/food/count-rows'),
-        axios.get('http://localhost:8080/api/order/count-rows'),
+        axios.get('http://localhost:8080/api/auth/count-rows' ,{
+          headers: {
+            Authorization: accessToken
+          }
+        }),
+        axios.get('http://localhost:8080/api/food/count-rows', {
+          headers: {
+            Authorization: accessToken
+          }
+        }),
+        axios.get('http://localhost:8080/api/order/count-rows', {
+          headers: {
+            Authorization: accessToken
+          }
+        }),
       ]);
       setUsersCount(responses[0].data);
       setFoodsCount(responses[1].data);
       setOrdersCount(responses[2].data);
     } catch (error) {
-      console.error('Error fetching data:', error);
+      setUnauthorized(true);
     }
   };
 
+  if (unauthorized) {
+    return (
+      <div>
+        <h3>You must be logged in as admin.</h3>
+      </div>
+    );
+  }
   return (
     <div className='admin-dashboard'>
       <button className='admin-dashboard-users-count' onClick={() => setActiveComponent('users')}>

@@ -28,6 +28,11 @@ public class FoodController {
         return foodService.findALl();
     }
 
+    @GetMapping("/get-all-admin")
+    public List<Food> getAllFoodAdmin(){
+        return foodService.findALl();
+    }
+
     @PostMapping("/save-food")
     public void saveFood(@ModelAttribute FoodDto foodDto){
         foodService.saveFood(foodDto);

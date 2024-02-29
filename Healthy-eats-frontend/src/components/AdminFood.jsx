@@ -9,15 +9,28 @@ import { useRef } from 'react';
 function AdminFood() {
   const [foods, setFoods] = useState([]);
   const fileInputRefs = useRef([]);
+  const [unauthorized, setUnauthorized] = useState(false);
   useEffect(() => {
-    axios.get('http://localhost:8080/api/food/get-all')
-      .then(response => {
-        setFoods(response.data); 
-      })
-      .catch(error => {
-        console.error('Error fetching foods:', error);
-      });
+    const fetchFoods = async () => {
+      try {
+        const accessToken = localStorage.getItem('accessToken');
+        if (!accessToken) {
+          throw new Error('Unauthorized');
+        }
+        const response = await axios.get('http://localhost:8080/api/food/get-all-admin', {
+          headers: {
+            Authorization: accessToken
+          }
+        });
+        setFoods(response.data);
+      } catch (error) {
+        setUnauthorized(true);
+      }
+    };
+  
+    fetchFoods();
   }, []);
+  console.log(unauthorized);
 
   const handleInputChange = (index, field, value) => {
     const updatedFoods = [...foods];
@@ -46,8 +59,7 @@ function AdminFood() {
     };
     setFoods([...foods, newFoodCard]);
   };
-  
-  const handleSave = (food) =>{
+  const handleSave = (food) => {
     const requiredFields = ['foodName', 'foodDescription', 'foodPrice', 'foodType', 'foodImage'];
     const isAnyFieldEmpty = requiredFields.some(field => !food[field]);
     if (isAnyFieldEmpty) {
@@ -55,24 +67,38 @@ function AdminFood() {
       return;
     }
     const confirmed = window.confirm('Are you sure you want to save foods?');
-    if(confirmed){
+    if (confirmed) {
+      const accessToken = localStorage.getItem('accessToken');
+      if (!accessToken) {
+        console.error('Unauthorized: Access token not found.');
+        return;
+      }
       const formData = new FormData();
-    formData.append('foodId', food.foodId);
-    formData.append('foodName', food.foodName);
-    formData.append('foodDescription', food.foodDescription);
-    formData.append('foodPrice', parseInt(String(food.foodPrice).replace(/\s+/g, ''), 10));
-    formData.append('foodType', food.foodType);
-    formData.append('foodImage', food.foodImage);
-    axios.post('http://localhost:8080/api/food/save-food', formData)
-    .then(response => {
-      console.log('Food updated successfully');
-    })
-    .catch(error => {
-      console.error('Error updating food:', error);
-    });
-  }
-}
-
+      formData.append('foodId', food.foodId);
+      formData.append('foodName', food.foodName);
+      formData.append('foodDescription', food.foodDescription);
+      formData.append('foodPrice', parseInt(String(food.foodPrice).replace(/\s+/g, ''), 10));
+      formData.append('foodType', food.foodType);
+      formData.append('foodImage', food.foodImage);
+      
+      axios.post('http://localhost:8080/api/food/save-food', formData, {
+        headers: {
+          Authorization: accessToken
+        }
+      })
+      .then(response => {
+        console.log('Food saved successfully');
+      })
+      .catch(error => {
+        if (error.response && error.response.status === 401) {
+          alert('You are not logged in as admin.');
+        } else {
+          console.error('Error saving food:', error);
+        }
+      });
+    }
+  };
+  
   const handleUpdate = (food) => {
     const requiredFields = ['foodName', 'foodDescription', 'foodPrice', 'foodType', 'foodImage'];
     const isAnyFieldEmpty = requiredFields.some(field => !food[field]);
@@ -81,41 +107,65 @@ function AdminFood() {
       return;
     }
     const confirmed = window.confirm('Are you sure you want to update foods?');
-    if(confirmed){
+    if (confirmed) {
+      const accessToken = localStorage.getItem('accessToken');
+      if (!accessToken) {
+        console.error('Unauthorized: Access token not found.');
+        return;
+      }
+  
       const formData = new FormData();
-    formData.append('foodId', food.foodId);
-    formData.append('foodName', food.foodName);
-    formData.append('foodDescription', food.foodDescription);
-    formData.append('foodPrice', parseInt(String(food.foodPrice).replace(/\s+/g, ''), 10));
-    formData.append('foodType', food.foodType);
-    if (food.foodImage instanceof File) {
-      formData.append('foodImage', food.foodImage);
-      axios.post('http://localhost:8080/api/food/update-food-img', formData)
-        .then(response => {
-          console.log('Food updated successfully');
+      formData.append('foodId', food.foodId);
+      formData.append('foodName', food.foodName);
+      formData.append('foodDescription', food.foodDescription);
+      formData.append('foodPrice', parseInt(String(food.foodPrice).replace(/\s+/g, ''), 10));
+      formData.append('foodType', food.foodType);
+      
+      if (food.foodImage instanceof File) {
+        formData.append('foodImage', food.foodImage);
+        axios.post('http://localhost:8080/api/food/update-food-img', formData, {
+          headers: {
+            Authorization: accessToken
+          }
         })
-        .catch(error => {
-          console.error('Error updating food:', error);
-        });
+          .then(response => {
+            console.log('Food updated successfully');
+          })
+          .catch(error => {
+            alert('You are not logged in as admin.');
+          });
+      } else {
+        axios.post('http://localhost:8080/api/food/update-food', formData, {
+          headers: {
+            Authorization: accessToken
+          }
+        })
+          .then(response => {
+            console.log('Food updated successfully');
+          })
+          .catch(error => {
+            alert('You are not logged in as admin.');
+          });
+      }
     } else {
-      axios.post('http://localhost:8080/api/food/update-food', formData)
-        .then(response => {
-          console.log('Food updated successfully');
-        })
-        .catch(error => {
-          console.error('Error updating food:', error);
-        });
-    }
-    }else{
       console.log('Changes discarded.');
     }
-    
   };
   const handleDelete = (foodId, index) => {
     const confirmed = window.confirm('Are you sure you want to delete this food?');
     if (confirmed) {
+      const accessToken = localStorage.getItem('accessToken');
+      if (!accessToken) {
+        console.error('Unauthorized: Access token not found.');
+        return;
+      }
+  
       if (foodId) {
-        axios.post(`http://localhost:8080/api/food/delete-food/${foodId}`)
+        axios.post(`http://localhost:8080/api/food/delete-food/${foodId}`, null, {
+          headers: {
+            Authorization: accessToken
+          }
+        })
           .then(response => {
             console.log('Food deleted successfully');
             const updatedFoods = [...foods];
@@ -123,7 +173,7 @@ function AdminFood() {
             setFoods(updatedFoods);
           })
           .catch(error => {
-            console.error('Error deleting food:', error);
+            alert('You are not logged in as admin.');
           });
       } else {
         const updatedFoods = [...foods];
@@ -132,6 +182,10 @@ function AdminFood() {
       }
     }
   };
+  
+  if (unauthorized) {
+    return <h3>You must be logged in as admin.</h3>;
+  }
   return (
     <div className='admin-food-container'>
       {foods.map((food, index) => (
