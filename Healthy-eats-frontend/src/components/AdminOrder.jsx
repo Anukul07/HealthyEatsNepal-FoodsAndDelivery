@@ -7,28 +7,50 @@ import { faCheckCircle, faTrash, faCalendarCheck} from '@fortawesome/free-solid-
 
 function AdminOrder() {
   const [orderData, setOrderData] = useState([]);
+  const [unauthorized, setUnauthorized] = useState(false);
 
   useEffect(() => {
-    axios.get('http://localhost:8080/api/order/retrieve')
-      .then(response => {
-        setOrderData(response.data);
-      })
-      .catch(error => {
-        console.error('Error fetching order data:', error);
-      });
+    fetchData();
   }, []);
+
+  const fetchData = async () => {
+    try {
+      const accessToken = localStorage.getItem('accessToken');
+      if (!accessToken) {
+        throw new Error('Unauthorized');
+      }
+      
+      const response = await axios.get('http://localhost:8080/api/order/retrieve', {
+        headers: {
+          Authorization: accessToken
+        }
+      });
+      setOrderData(response.data);
+    } catch (error) {
+      setUnauthorized(true);
+    }
+  };
 
   const handleReadyButtonClick = async (orderId) => {
     const confirmReady = window.confirm('Is the order ready?');
     if (confirmReady) {
       try {
-        await axios.post(`http://localhost:8080/api/order/update-status/Ready/${orderId}`);
+        const accessToken = localStorage.getItem('accessToken');
+        if (!accessToken) {
+          throw new Error('Unauthorized');
+        }
+        await axios.post(`http://localhost:8080/api/order/update-status/Ready/${orderId}`, null, {
+          headers: {
+            Authorization: accessToken
+          }
+        });
+        
         setOrderReady(prevState => ({
           ...prevState,
           [orderId]: true
         }));
       } catch (error) {
-        console.error('Error updating order status:', error);
+        setUnauthorized(false);
       }
     }
   };
@@ -37,13 +59,27 @@ function AdminOrder() {
     const confirmDelete = window.confirm('Are you sure you want to delete this order?');
     if (confirmDelete) {
       try {
-        await axios.post(`http://localhost:8080/api/order/delete-by-id/${orderId}`);
+        const accessToken = localStorage.getItem('accessToken');
+        if (!accessToken) {
+          throw new Error('Unauthorized');
+        }
+        
+        await axios.post(`http://localhost:8080/api/order/delete-by-id/${orderId}`, null, {
+          headers: {
+            Authorization: accessToken
+          }
+        });
         setOrderData(prevOrderData => prevOrderData.filter(order => order.orderId !== orderId));
       } catch (error) {
-        console.error('Error deleting order:', error);
+        setUnauthorized(false);
       }
     }
   };
+  
+
+  if(unauthorized){
+    return <h3>You must be logged in as admin.</h3>
+  }
 
   return (
     <div className='admin-order-container'>
@@ -70,6 +106,8 @@ function AdminOrder() {
             <div className='admin-order-details3'>
               <p>Order date: {order.orderDate} </p>
               <p>Payment type: {order.paymentType}</p>
+              <p>Delivery address: {order.deliveryAddress}</p>
+              <p>Special Request : {order.specialRequest}</p>
             </div>
           </div>
           <div className='admin-order-buttons'>

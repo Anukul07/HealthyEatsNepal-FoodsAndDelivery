@@ -13,26 +13,6 @@ function AdminPage() {
   const location = useLocation();
   const navigate = useNavigate();
   const email = location.state ? location.state.email : ''; 
-
-  useEffect(() => {
-    fetchData();
-  }, []);
-
-  const fetchData = async () => {
-    try {
-      const responses = await Promise.all([
-        axios.get('http://localhost:8080/api/auth/count-rows'),
-        axios.get('http://localhost:8080/api/food/count-rows'),
-        axios.get('http://localhost:8080/api/order/count-rows'),
-      ]);
-      setUsersCount(responses[0].data);
-      setFoodsCount(responses[1].data);
-      setOrdersCount(responses[2].data);
-    } catch (error) {
-      console.error('Error fetching data:', error);
-    }
-  };
-
   const handleSetActiveComponent = (component) => {
     setActiveComponent(component);
   };

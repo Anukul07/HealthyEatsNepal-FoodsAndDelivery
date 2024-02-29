@@ -28,7 +28,12 @@ function LoginComponent() {
       const response = await axios.post('http://localhost:8080/api/auth/login', { email, password });
       const { accessToken, tokenType } = response.data;
       localStorage.setItem('accessToken', tokenType + accessToken);
-      const roleResponse = await axios.get(`http://localhost:8080/api/auth/getRole/${email}`);
+      const config = {
+        headers: {
+          Authorization: `Bearer ${accessToken}`
+        }
+      };
+      const roleResponse = await axios.get(`http://localhost:8080/api/auth/getRole/${email}`,config);
       const role = roleResponse.data;
       if (role === 'USER') {
         navigate('/');
@@ -36,12 +41,9 @@ function LoginComponent() {
         navigate('/AdminPage', { state: { email } });
       }          
     } catch (error) {
-      if (error.response.status === 403) {
-        setErrorMessage('Check your email and password and try again.');
-      } else {
-        setErrorMessage('Login failed. Please try again later.');
-      }
+      setErrorMessage('Check your email and password and try again.');
     }
+    console.log(localStorage.getItem('accessToken'))
   };
   return (
     <>

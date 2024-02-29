@@ -24,6 +24,7 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     @Query(value = "SELECT email from users where user_id = ?1", nativeQuery = true)
     String getEmail(int userId);
 
+    @Query(value = "select * from users where role = 'USER'",nativeQuery = true)
     List<User> findAll();
 
     @Modifying

@@ -114,6 +114,8 @@ const handlePlaceOrder = async () => {
     orderConfirmation: "Confirmed",
     foodReadyConfirmation: "Not Ready"
   };
+  console.log(specialRequestDetail)
+  console.log(deliveryDetails)
 
   try {
     const accessToken = localStorage.getItem('accessToken');
@@ -125,41 +127,34 @@ const handlePlaceOrder = async () => {
     if (response.status === 200) {
       setOrderMessage('Order has been placed');
     } else {
-      navigate('/Login');
-      setOrderMessage('Failed to place order');
+      setOrderMessage('You must login to place an order');
     }
   } catch (error) {
-    if (error.response && error.response.status === 403) {
-      navigate('/login');
+    setOrderMessage('You must login to place an order');
+  }
+};
+
+const fetchUserId = async () => {
+  try {
+    const accessToken = localStorage.getItem('accessToken');
+    if (accessToken) {
+      const response = await axios.get('http://localhost:8080/api/auth/userId', {
+        headers: {
+          Authorization: accessToken
+        }
+      });
+      setUserId(response.data);
     } else {
-      console.error('Error placing order:', error);
-      setOrderMessage('Error placing order');
-      navigate('/Login');
+      console.log("User not logged in yet")
     }
+  } catch (error) {
+    console.error('Error fetching userId:', error);
   }
 };
 
 useEffect(() => {
-  const fetchUserId = async () => {
-    try {
-      const accessToken = localStorage.getItem('accessToken');
-      if (accessToken) {
-        const response = await axios.get('http://localhost:8080/api/auth/userId', {
-          headers: {
-            Authorization: accessToken
-          }
-        });
-        setUserId(response.data);
-      } else {
-        console.log("User not logged in yet")
-      }
-    } catch (error) {
-      console.error('Error fetching userId:', error);
-    }
-  };
   fetchUserId();
 }, []);
-console.log(userId);
 
 return (
     <div className='main-cart-container'>
