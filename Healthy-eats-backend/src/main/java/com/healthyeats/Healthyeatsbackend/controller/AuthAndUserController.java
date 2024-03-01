@@ -22,27 +22,21 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Collections;
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/auth")
-public class AuthController {
+public class AuthAndUserController {
 
     private AuthenticationManager authenticationManager;
-    private UserRepository userRepository;
-    private PasswordEncoder passwordEncoder;
     private JWTGenerator jwtGenerator;
-
-    @Autowired
     private UserService userService;
 
     @Autowired
-    public AuthController(AuthenticationManager authenticationManager, UserRepository userRepository,
-                          PasswordEncoder passwordEncoder, JWTGenerator jwtGenerator) {
+    public AuthAndUserController(AuthenticationManager authenticationManager, UserService userService,
+                                 PasswordEncoder passwordEncoder, JWTGenerator jwtGenerator) {
         this.authenticationManager = authenticationManager;
-        this.userRepository = userRepository;
-        this.passwordEncoder = passwordEncoder;
+        this.userService = userService;
         this.jwtGenerator = jwtGenerator;
     }
 
@@ -58,18 +52,10 @@ public class AuthController {
     }
     @PostMapping("register")
     public ResponseEntity<String> register(@RequestBody RegisterDto registerDto) {
-        if (userRepository.existsByEmail(registerDto.getEmail())) {
+        if (userService.existsByEmail(registerDto.getEmail())) {
             return new ResponseEntity<>("Email is taken!", HttpStatus.BAD_REQUEST);
         }
-
-        User user = new User();
-        user.setFirstName(registerDto.getFirstName());
-        user.setLastName(registerDto.getLastName());
-        user.setEmail(registerDto.getEmail());
-        user.setPhoneNumber(registerDto.getPhoneNumber());
-        user.setRole(Role.USER);
-        user.setPassword(passwordEncoder.encode((registerDto.getPassword())));
-        userRepository.save(user);
+        userService.saveUser(registerDto);
         return new ResponseEntity<>("User registered success!", HttpStatus.OK);
     }
 

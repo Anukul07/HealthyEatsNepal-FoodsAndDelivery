@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import '../styles/Header.css';
@@ -9,6 +9,7 @@ function Header() {
   const navigate = useNavigate();
   const [username, setUsername] = useState('');
   const [usernameFontSize, setUsernameFontSize] = useState('17px');
+  const location = useLocation(); // Use useLocation hook to get the current location
 
   const {cartLength} = useContext(CartContext);
   const cartButtonClass = cartLength > 0 ? "cart-button animated" : "cart-button";
@@ -34,10 +35,7 @@ function Header() {
   }, []);
 
   const handleProfileButtonClick = () => {
-    const accessToken = localStorage.getItem('accessToken');
-    if (!accessToken) {
-      navigate('/login');
-    }
+    navigate('/login');
   };
   const handleCartButtonClick = () => {
     navigate('/Cart')
@@ -56,13 +54,13 @@ function Header() {
       </div>
       <div className="navigation">
         <div className="nav-left-section">
-          <Link to="/" className='nav-link'>
+          <Link to="/" className={`nav-link ${location.pathname === '/' ? 'active' : ''}`}>
             HOME
           </Link>
-          <Link to="/explore" className='nav-link'>
-            HOMEMEAL BOX
+          <Link to="/explore" className={`nav-link ${location.pathname === '/explore' ? 'active' : ''}`}>
+            HOMEMEALS
           </Link>
-          <Link to="/aboutUs" className='nav-link'> 
+          <Link to="/aboutUs" className={`nav-link ${location.pathname === '/aboutUs' ? 'active' : ''}`}> 
             ABOUT US
           </Link>
         </div>

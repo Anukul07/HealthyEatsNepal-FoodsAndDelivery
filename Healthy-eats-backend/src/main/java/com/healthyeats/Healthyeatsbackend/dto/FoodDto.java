@@ -6,12 +6,12 @@ import lombok.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-
-
 @Getter
 @Setter
 @ToString
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class FoodDto {
 
     @Null

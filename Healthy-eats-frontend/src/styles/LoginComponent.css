@@ -102,3 +102,33 @@
 .login-button:active {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); 
 } 
+
+@media screen and (max-width: 768px) {
+    .login-form-left-section-top-elements {
+        height: 15%; 
+    }
+
+    .login-top-element-h1 {
+        font-size: 13px; 
+    }
+
+    .login-top-element-p {
+        font-size: 8px;
+    }
+
+    .login-form-left-section-middle-elements {
+        height: 40%;
+    }
+
+    .login-form-left-section-middle-elements input {
+        width: 70%;
+        height: 40%;
+    }
+
+    .login-form-left-section-middle-elements label {
+        right: 10%; 
+        background-color: none;
+        left: auto; 
+        top: 0%; 
+    }
+}
