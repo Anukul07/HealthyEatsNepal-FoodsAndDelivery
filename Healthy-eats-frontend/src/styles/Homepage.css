@@ -5,23 +5,35 @@
     background-image: url(/src/assets/background.png);
     background-size: cover;    
     background-position: center;
-    background-repeat: no-repeat;
+    display: flex;
     display: flex;
     flex-direction: column;
-    width: 100%;
+    justify-content: space-between;
+    width: 100vw;
     height: 100vh;
 }
 @media (max-width: 1100px) {
     .background-container {
         background-image: url(/src/assets/backgroud-blur.png);
-        height: 70vh;
+        height: 100vh;
     }
 }
 .middle-section{
     display: flex;
+    height: 90%;
+    align-items: flex-start;
+    justify-content: center;
     flex-direction: column;
-    margin-top: 12%;
-    margin-left: 5%;
+
+}
+.middle-section-text{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    margin-left: 100px;
+    height: 60%;
+    width: 30%;
 }
 .middle-section-text h2{
     margin-bottom: 4px;

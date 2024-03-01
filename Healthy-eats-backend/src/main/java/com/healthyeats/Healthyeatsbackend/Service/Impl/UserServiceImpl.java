@@ -2,6 +2,7 @@ package com.healthyeats.Healthyeatsbackend.Service.Impl;
 
 import com.healthyeats.Healthyeatsbackend.Service.UserService;
 import com.healthyeats.Healthyeatsbackend.dto.AdminUserDto;
+import com.healthyeats.Healthyeatsbackend.dto.RegisterDto;
 import com.healthyeats.Healthyeatsbackend.entity.Role;
 import com.healthyeats.Healthyeatsbackend.entity.User;
 import com.healthyeats.Healthyeatsbackend.repository.UserRepository;
@@ -30,6 +31,23 @@ public class UserServiceImpl implements UserService {
         this.userRepository = userRepository;
         this.javaMailSender = javaMailSender;
         this.passwordEncoder = passwordEncoder;
+    }
+
+    @Override
+    public void saveUser(RegisterDto registerDto) {
+        User user = new User();
+        user.setFirstName(registerDto.getFirstName());
+        user.setLastName(registerDto.getLastName());
+        user.setEmail(registerDto.getEmail());
+        user.setPhoneNumber(registerDto.getPhoneNumber());
+        user.setRole(Role.USER);
+        user.setPassword(passwordEncoder.encode((registerDto.getPassword())));
+        userRepository.save(user);
+    }
+
+    @Override
+    public boolean existsByEmail(String email) {
+        return userRepository.existsByEmail(email);
     }
 
     @Override
@@ -78,8 +96,9 @@ public class UserServiceImpl implements UserService {
     }
     @Override
     public long countRows() {
-        return userRepository.count();
+        return userRepository.countUsersByRoleUser();
     }
+
 
     @Override
     public OtpResponse generateOtpToEmail(String email) {
@@ -113,6 +132,15 @@ public class UserServiceImpl implements UserService {
         userRepository.updatePassword(encodedPassword,email);
     }
 
+    @Override
+    public List<User> fetchAll() {
+        return userRepository.findAll();
+    }
+
+    @Override
+    public Optional<User> findById(int id) {
+        return userRepository.findById(id);
+    }
     public String generateOtp(){
         Random random = new Random();
         int otp = 100000 + random.nextInt(900000);

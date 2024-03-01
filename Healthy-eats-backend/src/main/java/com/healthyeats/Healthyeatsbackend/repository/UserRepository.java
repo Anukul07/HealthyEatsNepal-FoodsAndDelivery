@@ -7,13 +7,15 @@ import org.springframework.data.domain.Example;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
 
+@Repository
 public interface UserRepository extends JpaRepository<User, Integer> {
     Optional<User> findByEmail(String username);
-    Boolean existsByEmail(String username);
+    Boolean existsByEmail(String email);
 
     @Query(value = "SELECT user_id FROM users WHERE email = ?1",nativeQuery = true)
     int getUserIdByEmail(String email);
@@ -50,4 +52,6 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     @Query(value = "UPDATE users SET password = ?1 WHERE email = ?2",nativeQuery = true)
     void updatePassword(String password, String email);
 
+    @Query(value = "SELECT COUNT(*) FROM users WHERE role = 'USER'", nativeQuery = true)
+    long countUsersByRoleUser();
 }

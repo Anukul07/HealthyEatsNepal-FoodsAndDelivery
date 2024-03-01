@@ -48,6 +48,9 @@ public class SecurityConfig {
                 .requestMatchers(HttpMethod.GET, "/api/auth/getRole").hasAnyRole()
                 .requestMatchers(HttpMethod.GET, "/api/auth/get-all-users").hasRole("ADMIN")
                 .requestMatchers(HttpMethod.GET, "/api/auth/userId").permitAll()
+                .requestMatchers(HttpMethod.POST, "/api/auth/send-otp/**").permitAll()
+                .requestMatchers(HttpMethod.POST, "/api/auth/password-reset/**").permitAll()
+                .requestMatchers(HttpMethod.POST, "/api/auth/validate-otp/**").permitAll()
                 .requestMatchers(HttpMethod.POST, "/api/auth/delete-user").hasRole("ADMIN")
                 .requestMatchers(HttpMethod.GET, "/api/auth/count-rows").hasRole("ADMIN")
                 .requestMatchers(HttpMethod.GET, "/api/food/count-rows").hasRole("ADMIN")
@@ -62,10 +65,6 @@ public class SecurityConfig {
                 .requestMatchers(HttpMethod.GET, "/api/order/retrieve").hasRole("ADMIN")
                 .requestMatchers(HttpMethod.POST, "/api/order/delete-by-id/**").hasRole("ADMIN")
                 .requestMatchers(HttpMethod.POST, "/api/order/update-status/**").hasRole("ADMIN")
-
-//                .requestMatchers("/api/auth/**").permitAll()
-//                .requestMatchers("/api/food/**").permitAll()
-//                .requestMatchers("/api/order/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .httpBasic();

@@ -20,7 +20,7 @@
     width: 100%;
 }
 .about-us-body{
-    height: 70%;
+    height: 60%;
     width: 90%;
     display: flex;
     background-image: linear-gradient(135deg, #10993e, #5b5e92);
@@ -81,3 +81,37 @@
     font-size: 20px;
 }
 
+/* Add media queries for responsiveness */
+@media (max-width: 768px) {
+    .about-us-container {
+      height: auto;
+      padding: 20px;
+    }
+  
+    .about-us-body {
+      flex-direction: column;
+    }
+  
+    .about-us-body-logo {
+      width: 100%;
+    }
+  
+    .about-us-body-info {
+      width: 100%;
+    }
+  
+    .about-us-body-info-1,
+    .about-us-body-info-2 {
+      width: 100%;
+      margin: 0;
+    }
+  
+    .about-us-body-info-2 {
+      margin-top: 20px;
+    }
+  
+    .about-us-body-info-2 p {
+      font-size: 16px;
+    }
+  }
+  

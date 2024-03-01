@@ -43,7 +43,6 @@ function LoginComponent() {
     } catch (error) {
       setErrorMessage('Check your email and password and try again.');
     }
-    console.log(localStorage.getItem('accessToken'))
   };
   return (
     <>

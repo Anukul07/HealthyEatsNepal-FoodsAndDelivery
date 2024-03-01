@@ -33,7 +33,7 @@ public class Food {
     @Column(name = "food_description",nullable = false)
     private String foodDescription;
 
-    @Column(name = "food_image", nullable = false)
+    @Column(name = "food_image", nullable = true)
     private String foodImage;
 
     @Column(name = "food_type", nullable = false)
